@@ -1,0 +1,46 @@
+﻿@model List<MVC.Domain.Model.Menus>
+
+@{ Layout = null; }
+
+<ul class="sidebar-menu">
+    @if (Model != null)
+    {
+        foreach (var mainMenuItem in Model)
+        {
+            var subMenuItem = Model.Where(m => m.ParentMenuId == mainMenuItem.MenuId);
+
+            if (subMenuItem.Count() > 0)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link has-dropdown" href="#">
+                        <i class="fas fa-laptop"></i>
+                        <span class="nav-text">@mainMenuItem.Title</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        @foreach (var SubItem in subMenuItem)
+                        {
+                            <li>
+                                <a class="nav-link" href="@SubItem.NewUrl">
+                                    <i class="fas fa-list-alt"></i> <span>Visitor @SubItem.Title</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                if (mainMenuItem.ParentMenuId == 0)
+                {
+                    <li>
+                        <a class="nav-link" href="@mainMenuItem.NewUrl" aria-expanded="false">
+                            <i class="@mainMenuItem.Icons"></i>
+                            <span>@mainMenuItem.Title</span>
+                        </a>
+                    </li>
+                }
+            }
+        }
+    }
+</ul>

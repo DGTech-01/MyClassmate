@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    if (ViewBag.roleid == 2)
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+}
+@model List<MVC.Domain.Model.VisitorModel>
+
+
+
+<div id="visitorList">
+<div class="section-header">
+    <h1>Dashboard</h1>
+ 
+
+
+</div>
+
+<div class="row">
+    @if (ViewBag.roleid == 2)
+    {
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <a href=@Url.Action("Visitor", "Admin")>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Visitors</h4>
+                        </div>
+                        <div class="card-body">
+                            @ViewBag.VisitorCount
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <a href=@Url.Action("Employee", "Admin")>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-danger">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Employees</h4>
+                        </div>
+                        <div class="card-body">
+                            @ViewBag.Employee
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <a href=@Url.Action("Visitor", "Admin")>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total Visitors</h4>
+                        </div>
+                        <div class="card-body">
+                            @ViewBag.Visitor
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <a href=@Url.Action("Cha", "Admin")>
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Total CHA Registers</h4>
+                        </div>
+                        <div class="card-body">
+                            @ViewBag.ChaRegister
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                @if (ViewBag.roleid == 2)
+                {
+                    <h4>Visitors <span class="badge badge-primary">@ViewBag.VisitorCount</span></h4>
+                }
+                else
+                {
+                    <h4>Visitors <span class="badge badge-primary">@ViewBag.Visitor</span></h4>
+                }
+
+            </div>
+            <div class="card-body p-2">
+
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped dataTable no-footer">
+                        <thead>
+
+                            <tr>
+                                <th>Visitor ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+
+                                <th>Employee</th>
+                                <th>Checkin</th>
+                                <th>Action</th>
+                            </tr>
+
+
+                        </thead>
+
+
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.Email</td>
+
+                                <td>@item.OfficerName</td>
+                                <td>@item.CheckIn</td>
+                                <td>
+                                    @*<button type="button" class="btn btn-success"><i class="fa-solid fa-print"></i></button>*@
+                                    <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-info" data-toggle="tooltip" onclick="ViewVisitorByID(@item.ID)" data-placement="top" title="" data-original-title="View"><i class="far fa-eye"></i></a>
+
+                                </td>
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div id="viewVisitors"></div>
+
+
+<script>
+  
+
+    function ViewVisitorByID(ID) {
+
+   
+        
+            $.ajax({
+                url: "/Visitor/GetVisitorDetailByID",
+                    data: '{ID: ' + ID + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                  
+                    $("#viewVisitors").html(data);
+
+      document.getElementById('viewVisitors').style.display = 'block';
+       document.getElementById('visitorList').style.display = 'none';
+                   
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                  //  $("#tracker-loader").fadeOut("slow");
+                }
+            });
+
+        }
+
+       
+</script>

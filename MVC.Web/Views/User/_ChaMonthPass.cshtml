@@ -1,0 +1,106 @@
+﻿@*@{
+        ViewBag.Title = "Visitor";
+        Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+    }*@
+
+
+@model  MVC.Domain.Model.MonthlyPass
+
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-4 col-md-4 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <a href="#" id="print" class="btn btn-icon icon-left btn-primary"><i class="fas fa-print"></i> Print ID card</a>
+                    <a href="" id="back" class="btn btn-icon icon-left btn-secondary"><i class="fas fa-print"></i> Back</a>
+                </div>
+                <div class="card-body ">
+                    <div class="img-cards" id="printidcard">
+                        <div class="id-card-holder">
+                            <div class="id-card">
+                                <div class="id-card-photo">
+                                    <img src="https://demo.quickpass.xyz//storage/28/06.jpg" alt="">
+
+                                </div>
+                                <img src="~/Images/Cha_liveImage/@Model.VisitorPic" height="80" width="80" />
+                                <h2>@Model.FirstName @Model.LastName</h2>
+                                <h3>@Model.Phone</h3>
+                                <h3></h3>
+                                <h4><b>Address</b></h4>
+                                <h3>@Model.VisitorAddress</h3>
+                                <h2>VISITED TO </h2>
+                                <h3>@Model.OfficerName</h3>
+                                <hr>
+                                <p><strong>CHA Monthly Pass </strong></p>
+                                <p><strong>Mumbai, India </strong></p>
+                                <p>@Model.Email</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-8 col-md-8 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="profile-desc">
+                        <div class="single-profile">
+                            <p><b>First Name: </b>@Model.FirstName</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Last Name: </b>@Model.LastName</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>E-mail: </b>@Model.Email</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Phone: </b>@Model.Phone</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Officer Name: </b>@Model.OfficerName</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Purpose: </b>@Model.VisitPurpose</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Company Name: </b>@Model.CompanyName</p>
+                        </div>
+
+                        @*<div class="single-profile">
+                                <p><b>Checkin: </b>@Model.CHAID</p>
+                            </div>*@
+                        @*<div class="single-profile">
+                                <p><b>Checkout: </b>@Model.CHAID</p>
+                            </div>*@
+                        <div class="single-profile">
+                            <p><b>Address: </b>@Model.VisitorAddress</p>
+                        </div>
+                        <div class="single-profile">
+                            <p>
+                                <b>Approve Status: </b>
+
+
+                                @if (@Model.IsApproved == 1)
+                                {
+                                    <span>Yes</span>
+
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+
+                            </p>
+                        </div>
+                    </div>
+
+
+     
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

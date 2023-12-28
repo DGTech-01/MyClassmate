@@ -1,0 +1,20 @@
+﻿using MVC.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MVC.Repository.Interface
+{
+    public interface IChaPassRepository
+    {
+        int AddChaPassDetails(MonthlyPass monthlypass);
+        DataTable GetchasummaryList();
+
+        DataTable Getchareject(int ID);
+        DataTable GetchaAccept(int ID);
+        ChaRegisterEntity Getchaview(int ID);
+    }
+}

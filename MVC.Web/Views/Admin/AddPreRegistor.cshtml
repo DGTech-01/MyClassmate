@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Add Pre-Registor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section-header">
+    <h1>Pre-registers</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item"><a href=@Url.Action("PreRegistor", "Admin")>Pre-registers</a></li>
+
+
+        <li class="breadcrumb-item active">Add</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <form action=@Url.Action("PreRegistor", "Admin") method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">                        <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="first_name">First Name</label> <span class="text-danger">*</span>
+                                <input id="first_name" type="text" name="first_name" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="last_name">Last Name</label> <span class="text-danger">*</span>
+                                <input id="last_name" type="text" name="last_name" class="form-control " value="">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>E-Mail Address</label> <span class="text-danger">*</span>
+                                <input type="text" name="email" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Phone</label> <span class="text-danger">*</span><span class="text-info">
+                                    (With Country Code,Without
+                                    + sign)
+                                </span>
+                                <input type="text" name="phone" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>National Identification No</label> <span class="text-danger">*</span>
+                                <input type="text" name="national_identification_no" class="form-control " value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="gender">Gender</label> <span class="text-danger">*</span>
+                                <select id="gender" name="gender" class="form-control ">
+                                    <option value="5">
+                                        Male
+                                    </option>
+                                    <option value="10">
+                                        Female
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="employee_id">Select Employee</label> <span class="text-danger">*</span>
+                                <select id="employee_id" name="employee_id" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                    <option value="1">
+                                        Gemma Houston ( Operation )
+                                    </option>
+                                    <option value="2">
+                                        Bowen Webster ( IT )
+                                    </option>
+                                    <option value="3">
+                                        Trinity Stokes ( Marketing )
+                                    </option>
+                                    <option value="4">
+                                        Adelynn Gray ( IT )
+                                    </option>
+                                    <option value="5">
+                                        Gracelyn Baker ( IT )
+                                    </option>
+                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 127.6px;">
+                                    <span class="selection">
+                                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-employee_id-container">
+                                            <span class="select2-selection__rendered" id="select2-employee_id-container" title="
+                                            Gemma Houston ( Operation )
+                                        ">
+                                                Gemma Houston ( Operation )
+                                            </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                        </span>
+                                    </span><span class="dropdown-wrapper" aria-hidden="true"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Expected Date</label> <span class="text-danger">*</span>
+                                <input type="text" autocomplete="off" id="date-picker" name="expected_date" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="expected_time">Expected Time</label> <span class="text-danger">*</span>
+                                <input id="expected_time" type="text" name="expected_time" class="form-control  timepicker " value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="comment">Comment</label>
+                                <textarea name="comment" class="summernote-simple form-control height-textarea " id="comment" style="display: none;">                                            
+                                        </textarea><div class="note-editor note-frame card">
+                                    <div class="note-dropzone">  <div class="note-dropzone-message"></div></div><div class="note-toolbar-wrapper"><div class="note-toolbar card-header"><div class="note-btn-group btn-group note-style"><button type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1"><i class="note-icon-bold"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1"><i class="note-icon-italic"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1"><i class="note-icon-underline"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-eraser"></i></button></div><div class="note-btn-group btn-group note-font"><button type="button" class="note-btn btn btn-light btn-sm note-btn-strikethrough" tabindex="-1"><i class="note-icon-strikethrough"></i></button></div><div class="note-btn-group btn-group note-para"><div class="note-btn-group btn-group"><button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown"><i class="note-icon-align-left"></i></button><div class="dropdown-menu"><div class="note-btn-group btn-group note-align"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-left"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-center"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-right"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-justify"></i></button></div><div class="note-btn-group btn-group note-list"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-outdent"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-indent"></i></button></div></div></div></div></div></div><div class="note-editing-area">
+                                        <div class="note-handle"><div class="note-control-selection"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><textarea class="note-codable"></textarea><div class="note-editable card-block" contenteditable="true" style="min-height: 150px;">
+                                        </div>
+                                    </div><div class="note-statusbar">  <div class="note-resizebar">    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>  </div></div>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <label for="address">Address</label>
+                                <textarea name="address" class="summernote-simple form-control height-textarea " id="address" style="display: none;">                                            
+                                        </textarea><div class="note-editor note-frame card">
+                                    <div class="note-dropzone">  <div class="note-dropzone-message"></div></div><div class="note-toolbar-wrapper"><div class="note-toolbar card-header"><div class="note-btn-group btn-group note-style"><button type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1"><i class="note-icon-bold"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1"><i class="note-icon-italic"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1"><i class="note-icon-underline"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-eraser"></i></button></div><div class="note-btn-group btn-group note-font"><button type="button" class="note-btn btn btn-light btn-sm note-btn-strikethrough" tabindex="-1"><i class="note-icon-strikethrough"></i></button></div><div class="note-btn-group btn-group note-para"><div class="note-btn-group btn-group"><button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown"><i class="note-icon-align-left"></i></button><div class="dropdown-menu"><div class="note-btn-group btn-group note-align"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-left"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-center"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-right"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-justify"></i></button></div><div class="note-btn-group btn-group note-list"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-outdent"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-indent"></i></button></div></div></div></div></div></div><div class="note-editing-area">
+                                        <div class="note-handle"><div class="note-control-selection"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><textarea class="note-codable"></textarea><div class="note-editable card-block" contenteditable="true" style="min-height: 150px;">
+                                        </div>
+                                    </div><div class="note-statusbar">  <div class="note-resizebar">    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>  </div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer ">
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

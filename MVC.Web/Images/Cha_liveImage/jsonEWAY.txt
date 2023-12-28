@@ -1,0 +1,25 @@
+﻿Renuka - Target - 05-12-2023
+1. New Line - Excel Upload & Download (Assign to Sumit)--Done BY RENUKA
+2. Push Line - Excel Upload & Download (Assign to Sumit)--Done BY RENUKA
+3. Do Not Order - Excel Upload & Download (Assign to Sumit)-Done BY RENUKA
+4. Order Capping - Excel Upload & Download (Assign to Sumit)--Done BY RENUKA
+5. Order Save In Draft--done by renuka
+13. Adding 2 new field on the screen (Assign to Sumit)
+		In Supplier Create 2 Fields 
+		a) Order Value
+		b) Total Number Of Cases--Done BY SUMIT
+14. Add User - if Role is not Admin Or Store then display the Group dropdown this will came from the Group Name
+    (Assign to Sumit)--Done BY Sumit
+
+
+
+
+6. Order Review
+8. Order Final Submit
+9. Order In Draft then can add the order of same supplier from excel that must get merged
+10. Order in Draft order of same supplier can be selected from the on screen
+11. Order can be generated if cut of time not expired
+12. After cut of order can not be placed
+15. E2 B&M Product file - Grading System - Excel Upload & Download (Assign to Sumit)
+For Testing the use -> Kirti -> Ask Sumit let her know how to test on the server
+Renuka you have to lead and assigned the mentioned activity to assigned resources

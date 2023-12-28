@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "View Pre-Registor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section-header">
+    <h1>Pre-registers</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item"><a href=@Url.Action("PreRegistor", "Admin")>Pre-registers</a></li>
+
+
+        <li class="breadcrumb-item active">View</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-4 col-md-4 col-lg-4">
+            <div class="card">
+                <div class="card-body card-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="https://demo.quickpass.xyz/assets/img/default/user.png" alt="User profile picture">
+                    <h3 class="text-center">Lucy Stewart</h3>
+                    <p class="text-center">
+                        Pre-registers
+                    </p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-8 col-md-8 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="profile-desc">
+                        <div class="single-profile">
+                            <p><b>First Name: </b> Lucy</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Last Name: </b> Stewart</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>E-Mail Address: </b> Pre-registers21@example.net</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Phone: </b> 6546550007</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Employee: </b> Gracelyn Baker</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Expected Date: </b> 2022-09-18</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Expected Time: </b> 06:45 PM</p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Address: </b> Mirpur, Dhaka</p>
+                        </div>
+                        <div class="single-full-profile">
+                            <p><b>Comment: </b> </p>
+                        </div>
+                        <div class="single-profile">
+                            <p><b>Status: </b> Active</p>
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        <a id="waButton" href="https://wa.me/6546550007?text=Visitor Decline" target="_blank" class="btn btn-danger">Reject WhatsApp</a>
+                    </div>
+                    <div class="float-right">
+                        <a id="waButton" href="https://wa.me/6546550007?text=Visitor Accepthttps://demo.quickpass.xyz/qrcode/6546550007" target="_blank" class="btn btn-success mr-1">Send WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

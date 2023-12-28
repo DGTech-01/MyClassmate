@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+<link href="~/assets/css/id-card-print.css" rel="stylesheet" />
+<div class="container camera-container">
+    <div class="card border-0 bg-body">
+     
+        <form action=@Url.Action("ShowCheckIn", "CheckIn") method="POST" enctype="multipart/form-data" >
+            <input type="hidden" name="_token" value="Q7hXgdIgg3KrSSnijAsnernaMgiVma8VFPXRIcLw">
+            <div class="card-body custom-camera">
+                <div class="row">
+                    <div class="col-md-6 left-div">
+                        <div class="card border-0 ">
+                            <h4 style="color: #111570;font-weight: bold" class="text-center">Take Visitor Photo</h4>
+
+                            <div class="card-body">
+                                <div class="video-options mb-4">
+                                    <select name="" id="" class="custom-select">
+                                        <option value="">Select camera</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <video width="100%" height="200px" id="videos" autoplay></video>
+                                        <canvas class="d-none" style="border:5px solid #d3d3d3; display: none"></canvas>
+                                        <input type="hidden" id="image" name="photo" value="">
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" id="screenshot" title="ScreenShot" class='retakephoto'>
+                                            <img class="img" src="https://demo.quickpass.xyz/images/capture.png" style="height: 80px">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <span class="text-center"></span>
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <div class="img-cards" id="printidcard">
+                            <div class="id-card-holder">
+                                <div class="id-card custom-id-card">
+                                    <div class="id-card-photo">
+                                        <img id="card-img" style="width: 120px;height: 120px;" class="screenshot-image" alt="">
+
+                                    </div>
+                                    <h2 class="name mt-4">sdfsff dsffd</h2>
+                                    <h2 class="info"> Phone : 785757533365</h2>
+                                    <h2 class="info">Email : admin@example.com</h2>
+
+                                    <h2 class="visit mt-4">VISITED TO</h2>
+                                    <h3 class="email">Officer: Ramdas Kale</h3>
+                                    <hr class="bar">
+                                    <p class="company">Visitor Pass </p>
+                                    <p class="company">Mumbai, India. </p>
+                                    <p class="email">E-mail :info@inilabs.xyz </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="card-footer custom-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("StepOne", "CheckIn")" class="btn btn-primary float-left text-white cancel px-5 py-2">
+                            Back
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn  float-right continue text-light px-5 py-2 btn-submit-two" id="hide" onclick="SaveAndContinue()">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+
+
+    </div>
+    
+</div>
+
+

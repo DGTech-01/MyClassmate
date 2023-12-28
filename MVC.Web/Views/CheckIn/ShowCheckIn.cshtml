@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+@model List<MVC.Domain.Model.VisitorModel>
+
+@*<link href="~/assets/css/PrintPage.css" rel="stylesheet" />*@
+
+<div class="card border-0">
+    <div class="card-body">
+        <div class="card" style="border: 0;">
+            <div class="card-body ">
+
+                <div class="front" style="background-color: #ffffff; display: flex; flex-direction: row; justify-content: center; width: 100%;" id="printablediv">
+                    <div class="div" style="background-color: #ffffff; width: 214px; height: 322px; position: relative; border: 1px solid grey">
+                        <img style="height: 54px; top: 268px; position: absolute; width: 214px; left: 0;" class="shape" src="~/assets/img/shape-2.png" />
+                        <div class="overlap-group" style="position: absolute; width: 214px; height: 173px; top: 0; left: 0;">
+                            <img class="img" src="~/assets/img/shape-1.png" style="height: 147px; top: 0; position: absolute; width: 212px; left: 0;"/>
+                            @*<img class="img-2" src="~/assets/img/img02-6.svg" />*@
+                            <img class="img-2" src="~/Images/Visitor_liveImage/@ViewBag.VisitorPic" style="position: absolute; width: 69px; height: 69px; top: 104px; left: 70px; border-radius: 50%" />
+                            <div class="comjpany-name-logo" style="position: absolute; width: 198px; height: 20px; top: 67px; left: 5px;">
+                                <div class="group" style="position: relative; width: 200px; height: 20px;"><div class="name" style="width: 198px; color: #2d2121; font-size: 12px; position: absolute; top: 0; left: 0; font-family: 'Kameron', Helvetica; font-weight: 700; letter-spacing: 0; line-height: normal;">Jawaharlal Nehru Custom House</div></div>
+                            </div>
+                            <img class="image" src="~/assets/img/image-2.png" style="position: absolute; width: 54px; height: 61px; top: 5px; left: 75px; object-fit: cover;" />
+                            <div class="text-wrapper" style="position: absolute; width: 101px; top: 82px; left: 59px; font-family: 'Kameron', Helvetica; font-weight: 700; color: #151e6b; font-size: 13px; letter-spacing: 0; line-height: normal;">VISITING PASS</div>
+                        </div>
+                        <p class="satf-descro-topm" style="position: absolute; width: 126px; top: 211px; left: 12px; font-family: 'Roboto', Helvetica; font-weight: 400; color: transparent; font-size: 8px; letter-spacing: 0; line-height: normal;">
+                            <span class="span" style="font-weight: 700; color: #2e9da6;">Officer</span>
+                            <span class="text-wrapper-2" style="color: #2e9da6;">&nbsp;&nbsp; </span>
+                            <span class="text-wrapper-3" style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span class="text-wrapper-4" style="font-weight: 500; color: #000000;"> : @ViewBag.Officer<br /></span>
+
+                            <span class="span" style="font-weight: 700; color: #2e9da6;">Phone</span>
+                            <span class="text-wrapper-3"  style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                            <span class="text-wrapper-4" style="font-weight: 500; color: #000000;">:@ViewBag.Phone<br /></span>
+                            <span class="span">E-mail</span>
+                            <span class="text-wrapper-3"  style="color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                            <span class="text-wrapper-4" style="font-weight: 500; color: #000000;">: @ViewBag.Email</span>
+                        </p>
+                        <div class="staff-name" style="position: absolute; width: 114px; height: 18px; top: 177px; left: 56px;"><div class="name-2" style="width: 112px; color: #030708; font-size: 16px; white-space: nowrap; position: absolute; top: 0; left: 0; font-family: 'Kameron', Helvetica; font-weight: 700; letter-spacing: 0; line-height: normal;">@ViewBag.VisitorName</div></div>
+                        @*<img class="image-2" src="~/assets/img/image-1.png" />*@
+                        <img class="image-2" src="@ViewBag.Path" style="position: absolute; width: 64px; height: 59px; top: 203px; left: 140px;">
+
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center" style="padding-bottom:30px">
+                    <div class="col-md-3">
+                        <div style="margin-top: 10px;" class="justify-content-center">
+                            <div class="btn-group btn-group-justified">
+                                <a href=@Url.Action("Visitor", "Visitor") class="btn btn-primary text-white">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+                                </a>
+                                <a href="#" id="print" class="btn btn-success text-white" onclick="printDiv()">
+                                    <i class="fa fa-print" aria-hidden="true"></i> Print
+                                </a>
+                                <a href=@Url.Action("Index", "Home") class="btn btn-danger text-white ">
+                                    <i class="fa fa-home" aria-hidden="true"></i> Home
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+@*<script>
+    function printDiv() {
+    debugger;
+    var printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Print</title>');
+
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(document.getElementById('printablediv').innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+
+    printWindow.onload = function () {
+        printWindow.print();
+        printWindow.onafterprint = function () {
+            printWindow.close();
+        };
+    };
+}
+
+
+</script>*@
+
+<script>
+    function printDiv() {
+    debugger;
+    var printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Print</title>');
+    // Add styles for centering and adjusting height
+    printWindow.document.write('<style>body { display: flex; align-items: center; justify-content: center; height: 50vh; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(document.getElementById('printablediv').innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+
+    printWindow.onload = function () {
+        printWindow.print();
+        printWindow.onafterprint = function () {
+            printWindow.close();
+        };
+    };
+}
+
+</script>
+

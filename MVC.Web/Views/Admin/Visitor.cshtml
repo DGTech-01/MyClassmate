@@ -1,0 +1,799 @@
+﻿
+@{
+    ViewBag.Title = "Visitor";
+    if (ViewBag.roleid == 2)
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+}
+
+@model List<MVC.Domain.Model.VisitorModel>
+<div id="visitorList">
+    <div class="section-header">
+        <h1>Visitors</h1>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+            <li class="breadcrumb-item active">Visitors</li>
+
+        </ol>
+
+
+    </div>
+
+    <div class="section-body" id="visitorLists">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <button type="button" onclick="hideAddPage()" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add Visitor</button>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped dataTable no-footer">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 5px;">VisitorID</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 53px;">Image</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 49px;">Name</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 60px;">Employee</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 48px;">Checkin</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 43px;">Check-out</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 84px;">Status</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 84px;">Status</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 84px;">Visitors Status</th>
+                                        <th class="col-md-3 sorting_disabled" rowspan="1" colspan="1" style="width: 173px;">Actions</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>
+                                            @if (@item.VisitorPic != "")
+                                            {
+                                                <img src="~/Images/Visitor_liveImage/@item.VisitorPic" height="50" width="50" style="border-radius:50%" />
+                                            }
+                                            else
+                                            {
+
+                                                <img src="~/assets/img/default/temp_UserImg.png" height="50" />
+                                            }
+
+                                        </td>
+
+
+
+
+                                        <td>@item.FirstName</td>
+                                        <td>@item.OfficerName</td>
+                                        <td>@item.CheckIn</td>
+                                        <td>@item.CheckOut</td>
+                                        <td>
+
+                                            @if (@item.IsActive == 1)
+                                            {
+                                                <span class="badge badge-success">Active</span>
+
+                                            }
+
+                                            else
+                                            {
+                                                <span class="badge badge-danger">InActive</span>
+
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.IsBlocked == 1)
+                                            {
+
+                                                <span class="badge badge-danger">Blocked</span>
+                                            }
+
+                                            else
+                                            {
+                                                <span class="badge badge-success">UnBlocked</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.Feedback == null)
+                                            {
+
+                                                <span class="badge badge-danger">Not Visited</span>
+                                            }
+
+                                            else
+                                            {
+                                        <span class="badge badge-success">Visited</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-success" data-toggle="tooltip" data-placement="top" title="" onclick="CheckOutByID(@item.TokenNo);" data-original-title="Check-Out"><i class="fas fa-sign-out-alt"></i></a>
+                                                <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-danger" data-toggle="tooltip" data-placement="top" title="" onclick="BlockVisitor(@item.ID)" data-original-title="Block Visitor"><i class="fa fa-ban"></i></a>
+                                                <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-info" data-toggle="tooltip" onclick="ViewVisitorByID(@item.ID)" data-placement="top" title="" data-original-title="View"><i class="far fa-eye"></i></a>
+                                                <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-primary" data-toggle="tooltip" onclick="EditVisitor(@item.ID)" data-placement="top" title="" data-original-title="Edit"><i class="far fa-edit"></i></a>
+                                                <form class="float-left" action="https://demo.quickpass.xyz/admin/visitors/7" method="POST">
+                                                    <!-- Your delete form content -->
+                                                    <button type="button" data-toggle="tooltip" class="btn btn-sm btn-icon float-left btn-danger delete" data-original-title="Delete" onclick="DeleteVisitor(@item.ID)"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                                <a href="#" class="btn btn-sm btn-icon mr-1 float-left btn-warning" data-placement="top" title="" data-original-title="Feedback" data-toggle="modal" data-target="#exampleModalCenter" onclick="FeedbackVisitorByID(@item.ID,'@item.FirstName')">
+                                                    <i class="fas fa-comment"></i>
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+                                </tbody>
+
+
+
+
+                            </table><div id="maintable_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="section-body" id="addVisitor" style="display:none">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <button class="btn btn-icon icon-left btn-primary" id="HideBtn" onclick="showAddPage();"> <i class=" fas fa-solid fa-list"></i>Show List</button>
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">
+                        <div class="visitor" id="visitor">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12" style="display:none">
+                                    <div class="form-group">
+                                        <label class="label-css">Visitor's ID'<span class="text-danger">*</span></label>
+                                        <input type="hidden" id="ID" class="form-control input-css " value="" placeholder="NEW">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="first_name">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="first_name" id="first_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="last_name" id="last_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="">E-mail</label>
+                                        <input type="email" name="email" id="email" class="form-control input-css " placeholder="e.g. xyz@mail.com" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="">Phone <span class="text-danger">*</span><span class="text-info"> (Without Country Code,Without + sign)</span></label>
+                                        <input type="number" maxlength="10" pattern="[0-9]+" name="phone" id="phone" class="form-control input-css" placeholder="e.g. 910000000000" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="gender">Gender</label>
+                                        <select id="gender" name="gender" class="form-control input-css ">
+                                            <option value="">--Select Gender--</option>
+                                            <option value="1">
+                                                Male
+                                            </option>
+                                            <option value="2">
+                                                Female
+                                            </option>
+                                            <option value="3">
+                                                Other
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="national_identification_no">Aadhar No <span class="text-danger">*</span></label>
+                                        <input type="number" maxlength="12" name="national_identification_no" id="aadhar" class="form-control input-css " value="" placeholder="e.g. 111122223333">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="department">Department</label>
+                                        @Html.DropDownList("department", (IEnumerable<SelectListItem>)ViewBag.Department, null, new { @class = "form-control", @id = "department" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="gender">Officer</label>
+                                        @Html.DropDownList("officer", (IEnumerable<SelectListItem>)ViewBag.Officer, null, new { @class = "form-control", @id = "officer" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="gender">Visitor Type</label>
+                                        @Html.DropDownList("visitorType", (IEnumerable<SelectListItem>)ViewBag.VisitorType, null, new { @class = "form-control", @id = "visitorType" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="gender">Document Type</label>
+                                        @Html.DropDownList("documentType", (IEnumerable<SelectListItem>)ViewBag.DocumentType, null, new { @class = "form-control", @id = "documentType" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="label-css" for="company_name">Company Name</label>
+                                        <input type="text" name="company_name" id="company_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="purpose">Purpose <span class="text-danger">*</span></label>
+                                        <textarea name="purpose" class="summernote-simple form-control height-textarea " id="purpose" placeholder="Write here..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="label-css" for="address">Address</label>
+                                        <textarea name="address" class="summernote-simple form-control height-textarea " id="address" placeholder="e.g. xyz"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="customFile">Image</label>
+                                    <div class="custom-file">
+                                        <input name="image" type="file" accept="image/*" class="custom-file-input " id="image" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <input type="hidden" id="PhotoForedit" value="" />
+                                    <img id="blah" alt="your image" class="img-thumbnail image-width mt-4 mb-3" width="100" height="100" src="https://demo.quickpass.xyz/assets/img/default/user.png" />
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-footer ">
+                            <button class="btn btn-primary mr-1" type="submit" id="SaveBtn" onclick="SaveVisitor()">Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">FeedBack Of Visitor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form >
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css">Visitor's ID'<span class="text-danger">*</span></label>
+                                    <input type="text" id="VisitorsID_fb" class="form-control input-css" readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="first_name">Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="first_name" id="Full_name_fb" class="form-control input-css " readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">FeedBack<span class="text-danger">*</span></label>
+                                    <textarea type="text" name="FeedBack_fb" id="FeedBack_fb" class="form-control"  rows="3"></textarea>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="SaveFeedBack()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input id="visitorID" type="hidden" value="0" />
+<div id="viewVisitors"></div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+function FeedbackVisitorByID(ID, firstName) {
+  
+    document.getElementById('Full_name_fb').value = firstName;
+    document.getElementById('VisitorsID_fb').value = ID;
+    
+}
+
+function SaveFeedBack() {
+    debugger
+    var visitorID = document.getElementById('VisitorsID_fb').value;
+    var feedback = document.getElementById('FeedBack_fb').value;
+
+    var data = {
+        VisitorID: visitorID,
+        Feedback: feedback
+    };
+
+    $.ajax({
+        type: 'POST', 
+        url: "/Visitor/SaveFeedBack",
+        data: data,
+        success: function(message) {
+    debugger
+             if (message == 'SUCCESS') {
+                       
+                        Swal.fire({
+                        title: "Good job!",
+                        text: "FeedBack Added!",
+                        icon: "success"
+                    }).then((result) => {
+                        
+                        if (result.isConfirmed) {
+                           
+                            location.reload();
+                        }
+                    });
+
+
+
+                    }
+                     else {
+                        Swal.fire({
+                            text: 'Save Failed',
+                            icon: 'warning',
+                            showCancelButton: true,  // Show the "OK" button
+                        });
+                    }
+        },
+        error: function(error) {
+            // Handle error response from the controller
+            console.error('Error sending data:', error);
+        }
+    });
+}
+
+
+function SaveVisitor() {
+    if (IsValid()) {
+
+        if (window.FormData !== undefined) {
+           debugger
+
+            var fileUpload1 = $("#image").get(0);
+            var files = fileUpload1.files;
+            var formdata = new FormData();
+
+            if ($('#image')[0].files.length !== 0) {
+                formdata.append(files[0].name, files[0]);
+            }
+
+            formdata.append('VisitorID', document.getElementById("visitorID").value);
+            formdata.append('FirstName', document.getElementById("first_name").value);
+            formdata.append('LastName', document.getElementById("last_name").value);
+            formdata.append('CompanyName', document.getElementById("company_name").value);
+            formdata.append('Gender', document.getElementById("gender").value);
+            formdata.append('VisitorType', document.getElementById("visitorType").value);
+            formdata.append('Image', document.getElementById("image").value);
+            formdata.append('Department', document.getElementById("department").value);
+            formdata.append('Officer', document.getElementById("officer").value);
+            formdata.append('AadharNo', document.getElementById("aadhar").value);
+            formdata.append('DocumentType', document.getElementById("documentType").value);
+            formdata.append('VisitorPic', document.getElementById("image").value);
+            formdata.append('VisitorAddress', document.getElementById("address").value);
+            formdata.append('VisitPurpose', document.getElementById("purpose").value);
+            formdata.append('Phone', document.getElementById("phone").value);
+            formdata.append('Email', document.getElementById("email").value);
+            formdata.append('PhotoForedit', document.getElementById("PhotoForedit").value);
+
+            return $.ajax({
+                url: "/Visitor/AddVisitorByAdmin",
+                type: 'POST',
+                data: formdata,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (message) {
+                debugger
+                    if (message == 'SUCCESS') {
+                        //var token = result.TokenNo;
+                        //alert("Save Success!");
+
+                        Swal.fire({
+                        title: "Good job!",
+                        text: "Visitor Saved!",
+                        icon: "success"
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+
+
+
+                    }
+                     else {
+                        Swal.fire({
+                            text: 'Save Failed, please fill all the Detials',
+                            icon: 'warning',
+                            showCancelButton: true,  // Show the "OK" button
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
+        else {
+            alert('FormData is not supported in this browser.');
+        }
+    }
+}
+
+    function IsValid() {
+
+        var Id = $("#visitorID").val();
+        var FirstName = $("#first_name").val();
+        var LastName = $("#last_name").val();
+        var Officer = $("#officer").val();
+        var Phone = $("#phone").val();
+        var Email = $("#email").val();
+        var Gender = $("#gender").val();
+        var CompanyName = $("#company_name").val();
+        var AadharNo = $("#aadhar").val();
+        var Purpose =$("#purpose").val();
+        var Address =$("#address").val();
+        var Image = $("image").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (FirstName == "") {
+            document.getElementById('first_name').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (LastName == "") {
+            document.getElementById('last_name').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Officer == "") {
+            document.getElementById('officer').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Phone == "") {
+            document.getElementById('phone').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Email == "") {
+            document.getElementById('email').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Gender == "") {
+            document.getElementById('gender').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (CompanyName == "") {
+            document.getElementById('company_name').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (AadharNo == "") {
+            document.getElementById('aadhar').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Purpose == "") {
+            document.getElementById('purpose').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Address == "") {
+            document.getElementById('address').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+
+
+     function DeleteVisitor(ID) {
+
+      var data1 = { 'ID': ID };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/Visitor/InActiveVisitor',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+                    location.reload();
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+
+       $(document).ready( function () {
+    $('#dtExample').DataTable();
+} )
+
+
+
+
+
+
+        function EditVisitor(ID) {
+    debugger
+                      //$("#SaveBtn").prop("disabled", true);
+
+            document.getElementById('addVisitor').style.display = 'block';
+            document.getElementById('visitorLists').style.display = 'none';
+
+
+
+            $.ajax({
+                url: "/Visitor/EditVisitorByID",
+                data: '{ID: ' + ID + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                    $("#visitorID").val(data.ID);
+
+                    $("#first_name").val(data.FirstName);
+
+                    $("#last_name").val(data.LastName);
+
+                    $("#email").val(data.Email);
+
+                    $("#phone").val(data.Phone);
+
+                    $("#gender").val(data.Gender);
+
+                     $("#aadhar").val(data.AadharNo);
+
+                    $("#department").val(data.Department);
+
+                    $("#officer").val(data.Officer);
+
+                    $("#visitorType").val(data.VisitorType);
+
+                    $("#documentType").val(data.DocumentType);
+
+                    $("#company_name").val(data.CompanyName);
+
+                    $("#purpose").val(data.VisitPurpose);
+
+                    $("#address").val(data.VisitorAddress);
+
+                    $("#PhotoForedit").val(data.VisitorPic);
+                    var dataImage = data.VisitorPic;
+                    var newImageUrl = "/Images/Visitor_liveImage/" + dataImage;
+
+                    $("#blah").attr("src", newImageUrl);
+
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                  //  $("#tracker-loader").fadeOut("slow");
+                }
+            });
+
+        }
+</script>
+
+
+<script>
+     function BlockVisitor(ID) {
+
+      var data1 = { 'ID': ID };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/Visitor/BlockVisitor',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+                    location.reload();
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+
+
+
+
+
+    function ViewVisitorByID(ID) {
+
+            $.ajax({
+                url: "/Visitor/GetVisitorDetailByID",
+                    data: '{ID: ' + ID + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $("#viewVisitors").html(data);
+
+      document.getElementById('viewVisitors').style.display = 'block';
+       document.getElementById('visitorList').style.display = 'none';
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+
+                }
+            });
+
+        }
+
+
+
+
+
+
+
+
+     function CheckOutByID(TokenNo){
+
+      var data1 = { 'TokenNo': TokenNo };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/Visitor/VisitorCheckOutByID',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+                    location.reload();
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+
+       $(document).ready( function () {
+    $('#dtExample').DataTable();
+} )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function hideAddPage() {
+        $('#addVisitor').show();
+        $('#visitorLists').hide();
+    }
+
+function showAddPage() {
+      $('#addVisitor').hide();
+        $('#visitorLists').show();
+    }
+</script>

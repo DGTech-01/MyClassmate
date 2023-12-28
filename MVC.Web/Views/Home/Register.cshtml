@@ -1,0 +1,471 @@
+﻿@{
+    ViewBag.Title = "Registor";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<style>
+    /*  #outer {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .video {
+        position: relative;
+        left: 0;
+        top: 0;
+        opacity: 1;
+    }*/
+
+</style>
+
+<div class="container">
+    <div class="row custom-css-step-one">
+        <div class="col-lg-6 p-0">
+            <div style="margin: 10px;">
+                <h2 class="form-title">Regular Visitor Registration</h2>
+
+
+                <input name="_token" type="hidden" value="VcGOcMJ2fIAns2gC8TTcdIikBFSkONFJwB5jW08B">
+                <div class="save">
+                    <div class="visitor" id="visitor">
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="first_name">CHA First Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="FirstName" id="FirstName" class="form-control input-css " value="" placeholder="e.g. xyz">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">CHA Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="LastName" id="LastName" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">E-mail</label>
+                                    <input type="text" name="EmailID" id="EmailID" class="form-control input-css " onchange="EmailValid()" placeholder="e.g. xyz@mail.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">CHA Code <span class="text-danger">*</span></label>
+                                    <input type="text" name="CHACode" id="CHACode" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Phone <span class="text-danger">*</span><span class="text-info"> (Without Country Code,Without + sign)</span></label>
+                                    <input type="number" maxlength="10" name="MobileNumber" id="MobileNumber" class="form-control input-css " value="" placeholder="910000000000">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Gender</label>
+                                    <select id="Gender" name="gender" class="form-control input-css ">
+                                        <option value="">--Select Gender--</option>
+                                        <option value="1">
+                                            Male
+                                        </option>
+                                        <option value="2">
+                                            Female
+                                        </option>
+                                        <option value="3">
+                                            Other
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="file">User Type Id</label>
+                                    @*<select name="status" id="UserTypeID" class="form-control" onchange="ChangeUserTypeID()">
+                                        <option value="">--Select User Type --</option>
+                                        <option value="2">
+                                            CHA
+                                        </option>
+                                        <option value="3">
+                                            Importer
+                                        </option>
+                                        <option value="4">
+                                            Advocate
+                                        </option>
+                                        <option value="5">
+                                            ShipLine
+                                        </option>
+                                        <option value="6">
+                                            Other Government officer
+                                        </option>
+                                    </select>*@
+                                    @Html.DropDownList("UserTypeID", (IEnumerable<SelectListItem>)ViewBag.UserTypeID, null, new { @class = "form-control", @id = "UserTypeID" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Registration Date</label>
+                                    <input type="date" name="RegistrationDate" id="RegistrationDate" class="form-control input-css " value="">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Password</label>
+                                    <input type="password" name="Password" id="Password" class="form-control input-css " value="" placeholder="e.g. 1234">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Confirm Password</label>
+                                    <input type="password" name="confirm_password" id="Password2" class="form-control input-css " value="" placeholder="e.g. 1234">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <label for="customFile" class="label-css">Document Type</label>
+                                @Html.DropDownList("DocumentType", (IEnumerable<SelectListItem>)ViewBag.DocumentType, null, new { @class = "form-control", @id = "DocumentType" })
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <label for="customFile" class="label-css">Document</label>
+                                <div class="custom-file">
+                                    <input id="Document" type="file" class="form-control" name="Document" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="file">Is Active</label>
+                                    <select id="IsActive" name="IsActive" class="form-control input-css ">
+
+                                        <option value="1">
+                                            Active
+                                        </option>
+                                        <option value="0">
+                                            InActive
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12" id="otherGovernmentOfficerInput" style="display: none;">
+                                <div class="form-group ">
+                                    <label for="otherGovernmentOfficer" class="label-css">Specify Other Government Officer</label>
+                                    <input type="text" id="otherGovernmentOfficer" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card " style="background-color:transparent !important; border:none;">
+                            <div class="card-body" style="padding:0 !important;">
+                                <div class="video-options">
+                                    <select name="" id="" class="custom-select">
+                                        <option value="">Select camera</option>
+                                    </select>
+                                </div>
+                                <label class="label-css" for="first_name">CHA Live Image <span class="text-danger">*</span></label>
+                                <div class="row">
+                                    <div class="col-6" id="outer">
+                                        <video id="videos" autoplay="" style="width: 270px; height: 200px;"></video>
+                                        <canvas class="d-none" style="border:5px solid #d3d3d3; display: none"></canvas>
+                                        <input type="hidden" name="photo" value="">
+                                    </div>
+
+
+                                    <div class="id-card-photo col-6">
+                                        <img id="image" style="width: 270px; height: 155px; margin-top:23px !important;" class="screenshot-image" alt="">
+                                    </div>
+                                </div>
+                                <button type="button" id="screenshot" title="ScreenShot" class='btn btn-primary btn-sm'>
+                                    Click Photo
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <a href="@Url.Action("Index", "Home")" class="btn cancel-btn float-left">
+                                    <span class="">Cancel</span>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <input type="hidden" id="hdnComplaintID" name="hdnComplaintID" value="" />
+                                <button type="submit" class="btn continue-btn float-right btn-submit-one" id="continue" onclick="SaveVisitor()">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6 image-display d-flex justify-content-end ">
+            <img class="img-css" src="https://demo.quickpass.xyz/frontend/images/vps.png" alt="">
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    function ChangeUserTypeID(){
+    //debugger
+    var selectedValue = $("#UserTypeID").val();
+
+            // Check if the selected value is "6" (Other Government officer)
+            if (selectedValue === '6') {
+                // Show the additional input field
+                $('#otherGovernmentOfficerInput').show();
+            } else {
+                // Hide the additional input field
+                $('#otherGovernmentOfficerInput').hide();
+            }
+    }
+
+
+
+    function SaveVisitor() {
+    if (IsValid()) {
+
+        if (window.FormData !== undefined) {
+    debugger;
+            $("#continue").prop("disabled", true);
+            var file = document.getElementById("image").src;
+            var fileUpload1 = $("#Document").get(0);
+            var files = fileUpload1.files;
+            var formdata = new FormData();
+
+            if ($('#Document')[0].files.length !== 0) {
+                formdata.append(files[0].name, files[0]);
+            }
+
+            //formdata.append('Id', document.getElementById("hdnComplaintID").value);
+            formdata.append("image", file);
+            formdata.append('DocumentType', document.getElementById("DocumentType").value);
+            formdata.append('FirstName', document.getElementById("FirstName").value);
+            formdata.append('LastName', document.getElementById("LastName").value);
+            formdata.append('EmailID', document.getElementById("EmailID").value);
+            formdata.append('CHACode', document.getElementById("CHACode").value);
+            formdata.append('MobileNumber', document.getElementById("MobileNumber").value);
+            formdata.append('Gender', document.getElementById("Gender").value);
+            formdata.append('UserTypeID', document.getElementById("UserTypeID").value);
+            formdata.append('RegistrationDate', document.getElementById("RegistrationDate").value);
+            formdata.append('Password', document.getElementById("Password").value);
+            formdata.append('Document', document.getElementById("Document").value);
+            formdata.append('IsActive', document.getElementById("IsActive").value);
+            formdata.append('otherGovernmentOfficer', document.getElementById("otherGovernmentOfficer").value);
+
+            return $.ajax({
+                url: "/Home/AddChaDetails",
+                type: 'POST',
+                data: formdata,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (message) {
+                    if (message== 'SUCCESS') {
+
+
+
+                        Swal.fire({
+                              title: "Registered Successfully!",
+                              text: "Wait for Approval",
+                              icon: "success"
+                                  }).then((result) => {
+                                  if (result.isConfirmed) {
+                                   location.reload();
+
+                                  }
+                                });
+
+
+                    }
+                     else {
+                       Swal.fire({
+                              title: "Registered Unsuccessfully!",
+                              text: "Please Check you Network connection!",
+                              icon: "warning"
+                            });
+                     //Ider Par Navigate wala dalna hai.
+                    }
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
+        else {
+            alert('FormData is not supported in this browser.');
+        }
+    }
+}
+
+
+
+
+
+
+    function Redirect() {
+        var url = "/Home/Index/";
+        window.location = url;
+    }
+
+    function SaveImage() {
+        var file = document.getElementById("Document").src;
+        var CHAID = document.getElementById("hdnComplaintID").value;
+
+        var formdata = new FormData();
+        formdata.append("Document", file);
+        formdata.append('CHAID', CHAID);
+
+        $.ajax({
+            url: "/Home/SaveImage",
+            type: 'POST',
+            data: formdata,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (JSON.stringify(result > 0)) {
+                    alert("Live Image Capture Successfully...");
+                    var TokenNo = document.getElementById("TokenNo").value;
+                    window.location = '/CheckIn/ShowCheckIn/?token=' + TokenNo;
+                    ViewPhotos();
+                }
+            },
+        });
+    }
+
+    function IsValid() {
+        var Id = $("#hdnComplaintID").val();
+        var Liveimg = document.getElementById("image").src;
+        var FirstName = $("#FirstName").val();
+        var LastName = $("#LastName").val();
+        var UserTypeID = $("#UserTypeID").val();
+        var CHACode = $("#CHACode").val();
+        var Document = $("#Document").val();
+        var MobileNumber = $("#MobileNumber").val();
+        var EmailID = $("#EmailID").val();
+        var Password = $("#Password").val();
+        var Password2 = $("#Password2").val();
+        var Gender = $("#Gender").val();
+        var Address = $("#address").val();
+
+        var blResult = true;
+        if (Liveimg === "") {
+            document.getElementById('image').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (FirstName === "") {
+            document.getElementById('FirstName').style.borderColor = "red";
+            blResult = false;
+        }
+        if (LastName === "") {
+            document.getElementById('LastName').style.borderColor = "red";
+            blResult = false;
+        }
+        if (UserTypeID === "") {
+            document.getElementById('UserTypeID').style.borderColor = "red";
+            blResult = false;
+        }
+        if (CHACode === "") {
+            document.getElementById('CHACode').style.borderColor = "red";
+            blResult = false;
+        }
+        if (Document === "") {
+            document.getElementById('Document').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (MobileNumber === "") {
+            document.getElementById('MobileNumber').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (EmailID === "") {
+            document.getElementById('EmailID').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (Password !== Password2) {
+            document.getElementById('Password').style.borderColor = "red";
+            document.getElementById('Password2').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (Gender === "") {
+            document.getElementById('Gender').style.borderColor = "red";
+            blResult = false;
+        }
+
+        if (!blResult) {
+            alert('Please fill the required fields!');
+        }
+
+        return blResult;
+    }
+
+
+
+function EmailValid() {
+
+    var Email = $("#EmailID").val();
+
+
+    var data1 = { 'Email': Email };
+    var data = JSON.stringify(data1);
+
+    $.ajax({
+        data: data,
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "/Home/EmailValidation",
+        success: function (message) {
+            if (message == 'SUCCESS') {
+
+            } else {
+                alert("Email is already Used!");
+            }
+        }
+    });
+}
+
+</script>
+
+

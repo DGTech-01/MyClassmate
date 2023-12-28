@@ -1,0 +1,46 @@
+﻿@model List<MVC.Domain.Model.VisitorModel>
+@{
+    //ViewBag.Title = "Purchase Detail";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+    <table id="example" class="table table-striped dataTable no-footer">
+        <thead>
+            <tr>
+                @*
+                    <th>SrNo</th>*@
+                <th>ID</th>
+                <th>TokenNo</th>
+                <th>InDateTime</th>
+                <th>OutDateTime</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.TokenNo</td>
+                        <td>@item.InDateTime</td>
+                        <td>@item.OutDateTime</td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+
+
+
+

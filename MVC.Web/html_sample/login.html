@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Visitor Pass - Login</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- CSS Libraries -->
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/css/style.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/css/components.css">
+</head>
+
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="login-brand">
+                            <img src="https://demo.quickpass.xyz/images/site_logo.png" alt="logo" width="100">
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Login</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="POST" action="https://demo.quickpass.xyz/login">
+                                    <input type="hidden" name="_token" value="WZ5HTxluKIzLWWICjqtMJuWN2PbEHmSInNJLvvJQ">
+                                    <div class="form-group">
+                                        <label for="email">Email</label><span class="text-danger"> *</span>
+                                        <input id="email" type="email" class="form-control " name="email" value="" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="d-block">
+                                            <label for="password" class="control-label">Password</label><span class="text-danger"> *</span>
+                                        </div>
+                                        <input id="password" type="password" class="form-control " name="password" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" name="remember" id="remember">
+
+                                            <label class="custom-control-label" for="remember">
+                                                Remember Me
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            Login
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card mx-auto text-center mt-4" style="max-width: 500px;">
+                            <div class="card-header">
+                                <h4 class="mb-0">For Quick Demo Login Click Below...</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="buttons">
+                                    <button id="demo-admin" class="btn btn-primary">Admin</button>
+                                    <button id="demo-reception" class="btn btn-info">Reception</button>
+                                    <button id="demo-employee" class="btn btn-success">Employee</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="simple-footer">
+                            @ All Rights Reserved
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/jquery.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/js/demo-login.js"></script>
+</body>
+
+</html>

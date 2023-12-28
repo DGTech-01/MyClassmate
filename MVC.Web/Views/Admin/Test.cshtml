@@ -1,0 +1,370 @@
+﻿
+@{
+    ViewBag.Title = "Designation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<MVC.Domain.Model.DesignationModel>
+
+<div class="section-header">
+    <h1>Designation</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item active">Designation</li>
+
+    </ol>
+
+
+</div>
+
+
+
+<div class="section-body" id="addDesignation" style="display:none">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-icon icon-left btn-primary" onclick="myFunction();"><i class="fas fa-plus"></i> Summary</button>
+                </div>
+
+                <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">						    <div class="card-body">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="text" id="designationID" name="name" class="form-control" placeholder="NEW" readonly />
+                    </div> <div class="form-group">
+                        <label>Name</label> <span class="text-danger">*</span>
+                        <input type="text" id="designation" name="name" class="form-control " value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label> <span class="text-danger">*</span>
+                        <select name="status" id="IsActive" class="form-control ">
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-1" onclick="SaveDesignation()">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section-body" id="designationList">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-icon icon-left btn-primary" onclick="ShowNewEntry();"><i class="fas fa-plus"></i> Add Designation</button>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped dataTable no-footer">
+                            <thead>
+                                <tr>
+
+                                    <th class="wd-15p sorting">Designation ID</th>
+                                    <th class="wd-15p sorting">Designation</th>
+                                    <th class="wd-15p sorting">Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+
+                                    <th class="wd-15p sorting">Designation ID</th>
+                                    <th class="wd-15p sorting">Designation</th>
+                                    <th class="wd-15p sorting">Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+
+                                            <td>@item.ID</td>
+                                            <td>@item.Designation</td>
+                                            <td>
+
+                                                @if (@item.IsActive == 1)
+                                                {
+                                                    <span class="badge badge-success">Active</span>
+
+                                                }
+
+                                                else
+                                                {
+                                                    <span class="badge badge-danger">InActive</span>
+
+                                                }
+                                            </td>
+                                            <td>
+
+                                                @*<button type="button" class="btn btn-success"><i class="fa-solid fa-print"></i></button>*@
+                                                <button type="button" class="btn btn-sm  btn-icon float-left btn-primary" data-original-title="Edit" title="" data-toggle="tooltip" data-placement="top" onclick="FetchUserDetails('@item.ID', '@item.Designation','@item.IsActive')"><i class="far fa-edit"></i></button>
+
+                                                <button type="button" class="btn btn-sm btn-icon float-left btn-danger" data-original-title="Delete" data-toggle="tooltip" onclick="DeleteEnquiry(@item.ID)"><i class="fa fa-trash"></i></button>
+
+
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     function FetchUserDetails(ID, Designation, IsActive) {
+
+       document.getElementById('addDesignation').style.display = 'block';
+       document.getElementById('designationList').style.display = 'none';
+
+        debugger;
+
+
+        $("#designationID").val(ID);
+        $("#designation").val(Designation);
+        $("#IsActive").val(IsActive);
+
+
+    }
+</script>
+
+
+
+<script>
+   $(document).ready( function () {
+    $('#dtExample').DataTable();
+} )
+</script>
+
+<script type="text/javascript">
+    function myFunction() {
+        $('#designationList').show();
+        $('#addDesignation').hide();
+    }
+
+    function ShowNewEntry() {
+        $('#designationList').hide();
+        $('#addDesignation').show();
+    }
+</script>
+
+
+<script>
+    function SaveDesignation() {
+        debugger
+        if (IsValid() == true) {
+            debugger;
+            var designationID = document.getElementById('designationID').value;
+
+            var DesignationModel = new Object();
+
+            DesignationModel.ID = designationID;
+            DesignationModel.Designation = $("#designation").val();
+            DesignationModel.IsActive = $("#IsActive").val();
+
+       var data = JSON.stringify({
+                DepartmentModel: DepartmentModel
+            });
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Designation/AddDesignation",
+                data: data,
+                success: function (result) {
+
+                    if (result == 'SUCCESS') {
+
+
+                     alert("Save Success!");
+
+
+                        location.reload();
+
+
+                        NavigateURL('/Admin/Designation/');
+
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+    function IsValid() {
+
+        var Id = $("#designationID").val();
+        var Designation = $("#designation").val();
+        var IsActive = $("#IsActive").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (Designation == "") {
+            document.getElementById('designation').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (IsActive == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+
+
+</script>
+
+<script>
+    function SaveDesignation() {
+        debugger
+        if (IsValid() == true) {
+            debugger;
+            var designationID = document.getElementById('designationID').value;
+
+     var DesignationModel = new Object();
+
+            DesignationModel.ID = designationID;
+            DesignationModel.Designation = $("#designation").val();
+            DesignationModel.IsActive = $("#IsActive").val();
+
+    alert('Heiii');
+
+            var data = JSON.stringify({
+                DesignationModel: DesignationModel
+            });
+     alert('Helooo');
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                  url: "/test/Addtest",
+                data: data,
+                success: function (result) {
+
+                    if (result == 'SUCCESS') {
+
+
+                     alert("Save Success!");
+                       
+                        location.reload();
+                        Swal.fire({
+                            title: 'Sweet!',
+                            text: 'Modal with a custom image.',
+                            imageUrl: 'https://unsplash.it/400/200',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                        });
+
+                       NavigateURL('/Admin/Designation/');
+
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+
+    function IsValid() {
+
+        var Id = $("#designationID").val();
+        var Designation = $("#designation").val();
+        var IsActive = $("#IsActive").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (Designation == "") {
+            document.getElementById('designation').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (IsActive == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+
+
+</script>
+
+
+<script>
+     function DeleteEnquiry(ID) {
+        debugger;
+      var data1 = { 'ID': ID };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/test/Deletetest',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+</script>
+
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js">
+</script>

@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "ChaMonthlyPass";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@model List<MVC.Domain.Model.MonthlyPass>
+
+<div class="section-header">
+    <h1> Monthly Pass</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item active">CHA Pass</li>
+
+    </ol>
+
+
+</div>
+
+
+
+<div class="section-body" id="addCha" style="display:none">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-icon icon-left btn-primary" onclick="myFunction();"><i class=" fas fa-solid fa-list"></i>Show List</button>
+                </div>
+
+             	  
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>USER ID</label>
+                        <input type="text" id="chaID" name="name" class="form-control" placeholder="NEW" readonly value="" />
+                    </div>
+                
+                    <div class="form-group">
+                        <label>From Date:</label> <span class="text-danger">*</span>
+                        <input type="Date" id="fromDate" name="fromDate" class="form-control ">
+                    </div> 
+                    <div class="form-group">
+                        <label>TO Date:</label> <span class="text-danger">*</span>
+                        <input type="Date" id="toDate" name="toDate" class="form-control ">
+                    </div>
+
+         
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-1" onclick="SaveCHA()">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section-body" id="chalists">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-icon icon-left btn-primary" onclick="ShowNewEntry();"><i class="fas fa-plus"></i>Requet Pass</button>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped dataTable no-footer">
+                            <thead>
+                                <tr>
+
+                                    <th class="wd-15p sorting">ID</th>
+                                    <th class="wd-15p sorting">From Date</th>
+                                    <th class="wd-15p sorting">To Date</th>
+                                    <th class="wd-15p sorting">Request</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                       
+                            <tbody>
+                              @if (Model != null) 
+                                {
+                                foreach (var item in Model)
+                                    {
+                                <tr>
+
+                                    <td>@item.ChaID</td>
+
+                                   
+                                    <td>@item.FromDate</td>
+                                    <td>@item.ToDate</td>
+                                   <td>
+
+                                        @if (@item.IsApproved == 1)
+                                        {
+                                            <span class="badge badge-success">Approved</span>
+
+                                        }
+
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Pendding</span>
+
+                                        }
+                                    </td>
+                                   <td>
+                                       @if (@item.IsApproved == 1)
+                                       {
+                                           <button type="button" class="btn btn-sm btn-icon float-left btn-primary" data-original-title="Print" data-toggle="tooltip" onclick="ViewChaPassByToken(@item.TokenNo)"><i class="fa fa-print"></i></button>
+
+                                       }
+
+                                       else
+                                       {
+                                           <button type="button" class="btn btn-sm btn-icon float-left btn-danger" data-original-title="Delete" data-toggle="tooltip" onclick="DeleteEnquiry(@item.ID)"><i class="fa fa-trash"></i></button>
+
+                                       }
+                                   
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="viewChaPass"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+     function FetchUserDetails(ID, Department, IsActive) {
+
+       document.getElementById('addCha').style.display = 'block';
+       document.getElementById('chalists').style.display = 'none';
+
+        debugger;
+
+
+        $("#departmentID").val(ID);
+        $("#department").val(Department);
+        $("#IsActive").val(IsActive);
+
+
+    }
+</script>
+
+
+
+<script>
+   $(document).ready( function () {
+    $('#dtExample').DataTable();
+} )
+</script>
+
+<script type="text/javascript">
+    function myFunction() {
+        $('#chalists').show();
+        $('#addCha').hide();
+    }
+
+    function ShowNewEntry() {
+        $('#chalists').hide();
+        $('#addCha').show();
+    }
+</script>
+
+<script>
+   function SaveCHA() {
+
+        if (IsValid() == true) {
+            debugger;
+            var CHAID = document.getElementById('chaID').value;
+
+            var MonthlyPassModel = new Object();
+
+            MonthlyPassModel.ID = CHAID;
+            MonthlyPassModel.fromDate = $("#fromDate").val();
+            MonthlyPassModel.toDate = $("#toDate").val();
+
+
+
+
+            var data = JSON.stringify({
+                MonthlyPassModel: MonthlyPassModel
+            });
+    debugger;
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/ChaMonthlyPass/AddChaMonthlyPassDetail",
+                data: data,
+                success: function (result) {
+    debugger
+                    if (result == 'SUCCESS') {
+                   Swal.fire({
+                              title: "Thanks!",
+                              text: "CHA Monthly Pass Saved successfully",
+                              icon: "success"
+                                  }).then((result) => {
+                                  if (result.isConfirmed) {
+                                   location.reload();
+                           
+                                  }
+                                });                 
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+
+    function IsValid() {
+
+        var Id = $("#chaID").val();
+        var FromDate = $("#fromDate").val();
+        var ToDate = $("#toDate").val();
+        var VisitorPassType = $("#visitorPassType").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+     
+          if (FromDate == "") {
+            document.getElementById('fromDate').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (ToDate == "") {
+            document.getElementById('toDate').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+  
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+
+
+</script>
+
+
+
+<script>
+     function DeleteEnquiry(ID) {
+        debugger;
+      var data1 = { 'ID': ID };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                      url: '/ChaMonthlyPass/ChaMonthPassRejected',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+                    location.reload();
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+
+  function Accept(ChaID) {
+           alert('hii');
+           alert(ChaID);
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/ChaMonthlyPass/ChaMonthPassApproved",
+                data: '{ID:' +ChaID +'}',
+                success: function (result) {
+
+                    if (result == 'SUCCESS') {
+                        location.reload();
+                        swal({
+                            title: "Good job!",
+                            text: "Click!",
+                            icon: "success",
+                            button: "Okay!",
+                        });
+                        NavigateURL('/Admin/ChaMonthPass/');
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+
+
+function ViewChaPassByToken(TokenNo) {
+ 
+    $.ajax({
+        url: "/User/GetChaPassByToken",
+        data: '{token: ' + TokenNo + '}',
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $("#viewChaPass").html(data);
+            document.getElementById('viewChaPass').style.display = 'block';
+            document.getElementById('chalists').style.display = 'none';
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+</script>
+

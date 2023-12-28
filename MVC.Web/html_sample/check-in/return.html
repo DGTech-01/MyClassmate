@@ -1,0 +1,218 @@
+<!DOCTYPE>
+<html>
+
+<!-- Head -->
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no">
+    <title>Visitor Pass Management - </title>
+    <link rel="icon" type="image/x-icon" href="https://demo.quickpass.xyz/images/site_logo2.png">
+
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/fontawesome-all.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/flaticon.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/animate.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/odometer-theme-default.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/owl.carousel.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/style.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/frontend/frontend/css/custom.css">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/css/id-card-print.css">
+
+    <!-- Template core CSS -->
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/modules/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Epilogue font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue&display=swap" rel="stylesheet">
+
+    <!--Red Hat Display Font CDN-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://demo.quickpass.xyz/assets/modules/izitoast/dist/css/iziToast.min.css">
+
+
+</head>
+<!-- Head -->
+
+<body class="pm-home pm-home-css-custom">
+
+
+    <header id="pm-header" class="pm-main-header  header-type-one">
+        <div class="container">
+            <div class="pm-main-header-content clearfix">
+                <div class="pm-logo float-left">
+                    <a href="https://demo.quickpass.xyz">
+                        <img src="https://demo.quickpass.xyz/images/site_logo.png" data-inject-svg="" alt="" style="height: 40px;">
+                    </a>
+                </div>
+
+                <div class="pm-main-menu-item float-right">
+                    <div class="pm-header-btn text-center text-capitalize float-right">
+                        <a href="https://demo.quickpass.xyz/admin/dashboard">Dashboard</a>
+                    </div>
+
+                    <nav class="pm-main-navigation float-right clearfix ul-li">
+                        <ul id="main-nav" class="navbar-nav text-capitalize clearfix">
+                            <li><a href="https://demo.quickpass.xyz/check-in/pre-registered">Have Appoinment</a></li>
+                            <li><a href="https://demo.quickpass.xyz/check-in/return">Been here Before</a> </li>
+                            <li>
+                                <a href="https://demo.quickpass.xyz/checkout">Check Out</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown" class="language nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                    <div class="d-sm-none d-lg-inline-block "><span class="flag-icon">🇬🇧</span>English</div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" style="border-bottom:none !important; width:100px !important">
+                                    <a href="https://demo.quickpass.xyz/admin/lang/en" class="language dropdown-item has-icon text-center" style="min-width:100px !important">
+                                        <span class="flag-icon flag-icon-aw">🇬🇧 </span>English</a>
+                                    <a href="https://demo.quickpass.xyz/admin/lang/de" class="language dropdown-item has-icon text-center" style="min-width:100px !important">
+                                        <span class="flag-icon flag-icon-aw">🇩🇪 </span>German</a>
+                                    <a href="https://demo.quickpass.xyz/admin/lang/sa" class="language dropdown-item has-icon text-center" style="min-width:100px !important">
+                                        <span class="flag-icon flag-icon-aw">🇸🇦 </span>Arabic</a>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /desktop menu -->
+            <div class="pm-mobile_menu relative-position">
+                <div class="pm-mobile_menu_button pm-open_mobile_menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="pm-mobile_menu_wrap">
+                    <div class="mobile_menu_overlay pm-open_mobile_menu"></div>
+                    <div class="pm-mobile_menu_content">
+                        <div class="pm-mobile_menu_close pm-open_mobile_menu">
+                            <i class="far fa-times-circle"></i>
+                        </div>
+                        <div class="m-brand-logo text-center">
+                            <a href="https://demo.quickpass.xyz"><img src="https://demo.quickpass.xyz/images/site_logo.png" alt="logo"></a>
+                        </div>
+                        <nav class="pm-mobile-main-navigation  clearfix ul-li">
+                            <ul id="m-main-nav" class="navbar-nav text-capitalize clearfix">
+                                <li><a href="https://demo.quickpass.xyz/check-in/pre-registered">Have Appoinment</a></li>
+                                <li><a href="https://demo.quickpass.xyz/check-in/return">Been here Before</a> </li>
+                                <li> <a href="https://demo.quickpass.xyz/checkout">Check Out</a></li>
+                                <li><a href="https://demo.quickpass.xyz/admin/dashboard">Dashboard</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /Mobile-Menu -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main" data-mobile-height="">
+        <!-- Default Page -->
+        <section id="pm-banner-1" class="custom-css-step">
+            <div class="container custom-prereg">
+                <div class="card" style="margin-top:40px;">
+
+                    <div class="card-body">
+                        <div style="margin: auto;">
+                            <form method="POST" action="https://demo.quickpass.xyz/check-in/return" accept-charset="UTF-8" id="myForm"><input name="_token" type="hidden" value="wpcyUKJsFkn6I2HGGyiwpDgbfO5LFQgKNA6KsaWC">
+                                <div class="save">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 left-side">
+                                            <h4 style="color: #111570;font-weight: bold">Return Visitor Details</h4>
+
+                                            <div class="form-group ">
+                                                <label for="email" class="control-label heading">Visitor's Email or Phone or NID<span class='text-danger'>*</span></label>
+                                                <input class="form-control input" id="email" placeholder="Search email , phone or national ID.." name="email" type="text" id="email">
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a href="https://demo.quickpass.xyz" class="btn cancel text-light float-left ">
+                                            Cancel
+                                        </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn text-light float-right continue" id="continue">
+                                            Continue
+                                        </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 right-image">
+                                            <img src="https://demo.quickpass.xyz/frontend/images/sample.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="d-flex justify-content-center footer-text pb-3">
+                <span> @ All Rights Reserved</span>
+            </div>
+        </section>
+    </div>
+    <!-- Main Content -->
+
+
+
+    <!-- Scripts -->
+    <!-- JS library -->
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/jquery.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/appear.js"></script>
+    <script src="https://demo.quickpass.xyz/assets/modules/popper.js/dist/popper.min.js"></script>
+    <script src="https://demo.quickpass.xyz/assets/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/aos.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/owl.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/wow.min.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/pagenav.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/parallax-scroll.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/jquery.paroller.min.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/jquery.barfiller.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/slick.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://demo.quickpass.xyz/frontend/frontend/js/script.js"></script>
+    <script src="https://demo.quickpass.xyz/assets/modules/select2/dist/js/select2.full.min.js"></script>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.1/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    <script src="https://demo.quickpass.xyz/assets/modules/izitoast/dist/js/iziToast.min.js"></script>
+
+    <!-- Scripts -->
+    <script type="application/javascript">
+        $(document).ready(function() {
+            $("#form-submit").click(function() {
+                $("#myForm").submit(); // Submit the form
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12 col-sm-8 offset-sm-2  offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="login-brand">
+                            <img src="~/assets/img/logo.png" alt="logo" height="80" class="p-2">
+                            <p class="">Visitor Management System</p>
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>Login</h4>
+                            </div>
+
+                            <div class="card-body">
+                              
+                                  
+                                    <div class="form-group">
+                                        <label for="email">Email</label><span class="text-danger"> *</span>
+                                        <input id="email" type="email" class="form-control " name="email" value="" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="d-block">
+                                            <label for="password" class="control-label">Password</label><span class="text-danger"> *</span>
+                                        </div>
+                                        <input id="password" type="password" class="form-control " name="password" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" name="remember" id="remember">
+
+                                            <label class="custom-control-label" for="remember">
+                                                Remember Me
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit"  id="btnLogin" onclick=" ValidateUser();" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            Login
+                                        </button>
+                                    </div>
+                              
+                            </div>
+                        </div>
+
+                        @*<div class="card mx-auto text-center mt-4" style="max-width: 500px;">
+                                <div class="card-header">
+                                    <h4 class="mb-0">For Quick Demo Login Click Below...</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="buttons">
+                                        <button id="demo-admin" class="btn btn-primary">Admin</button>
+                                        <button id="demo-reception" class="btn btn-info">Reception</button>
+                                        <button id="demo-employee" class="btn btn-success">Employee</button>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="simple-footer">
+                            @@ All Rights Reserved
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+
+
+    function ValidateUser() {
+
+        if (IsValid() == true) {
+
+            document.getElementById("email").style.borderColor = "gainsboro";
+            document.getElementById("password").style.borderColor = "gainsboro";
+
+
+            var useremail = $("#email").val();
+            var userpassword = $("#password").val();
+
+
+            var rememberme = true;
+
+            var url = "/Account/LoginSubmit/";
+            $("#btnLogin").text('Please wait..');
+
+            $.ajax({
+                url: url,
+                data: { email: useremail, password: userpassword},
+                type: "POST",
+                //contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    /*debugger;*/
+                    //alert(response);
+                    if (response.message == "SUCCESS") {
+                       if(response.roleid == "3")
+                        {  location.href = '@Url.Action("Dashboard", "User")';}
+                        else
+                        {  location.href = '@Url.Action("Dashboard", "Admin")';}
+
+
+                    }
+                    else {
+                        alert("incorrect email or password");
+                        $("#message").css("color", "red");
+                        $("#message").html("incorrect email or password");
+
+                        document.getElementById("email").value = "";
+                        document.getElementById("password").value = "";
+                        $("#btnLogin").text('Login');
+                    }
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+            $("#btnLogin").val('Login');
+        }
+      }
+
+
+        function IsValid() {
+
+            var userid = $("#email").val();
+            var password = $("#password").val();
+
+
+            var blResult = Boolean;
+            blResult = true;
+
+            if (userid == "") {
+
+                document.getElementById("email").style.borderColor = "red";
+                blResult = blResult && false;
+            }
+            if (password == "") {
+                document.getElementById('password').style.borderColor = "red"
+                blResult = blResult && false;
+            }
+
+
+
+            if (blResult == false) { alert('Please fill the required fields!'); }
+            return blResult;
+        }
+
+
+    </script>

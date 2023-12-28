@@ -1,0 +1,58 @@
+﻿
+
+@{
+    ViewBag.Title = "Pre Registor Report";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section-header">
+    <h1>Pre-Registers Report</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item active">Pre-registers</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body">
+    <div class="card">
+        <div class="card-body">
+            <form action="https://demo.quickpass.xyz/admin/admin-pre-registers-report" method="POST">
+                <input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P">                        <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>From Date</label>
+                            <input type="text" name="from_date" class="form-control  datepicker" value="01-10-2023">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>To Date</label>
+                            <input type="text" name="to_date" class="form-control  datepicker" value="24-10-2023">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="">&nbsp;</label>
+                        <button class="btn btn-primary form-control" type="submit">Get Report</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Pre-Registers Report</h5>
+            <button class="btn btn-success btn-sm report-print-button" onclick="printDiv('printablediv')">Print</button>
+        </div>
+        <div class="card-body" id="printablediv">
+            <h4 class="text-danger">The Pre-Registers data not found</h4>
+        </div>
+    </div>
+</div>

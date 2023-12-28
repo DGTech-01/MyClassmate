@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewBag.Title = "Add Visitor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section-header">
+    <h1>Visitors</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Visitor", "Admin")>Visitors</a></li>
+
+
+        <li class="breadcrumb-item active">Add</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body" id="addVisitor">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <button class="btn btn-icon icon-left btn-primary" id="HideBtn" onclick="myFunction();"><i class="fas fa-plus"></i>Show List</button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">
+                    <div class="visitor" id="visitor">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12" style="display:none">
+                                <div class="form-group">
+                                    <label class="label-css" for="first_name">Visitor's ID'<span class="text-danger">*</span></label>
+                                    <input type="text" id="visitorID" class="form-control input-css " value="" placeholder="NEW" readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="first_name">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">E-mail</label>
+                                    <input type="text" name="email" id="email" class="form-control input-css " value="" placeholder="e.g. xyz@mail.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Phone <span class="text-danger">*</span><span class="text-info"> (With Country Code,Without + sign)</span></label>
+                                    <input type="text" name="phone" id="phone" class="form-control input-css " value="" placeholder="910000000000">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Gender</label>
+                                    <select id="gender" name="gender" class="form-control input-css ">
+                                        <option value="">--Select Gender--</option>
+                                        <option value="1">
+                                            Male
+                                        </option>
+                                        <option value="2">
+                                            Female
+                                        </option>
+                                        <option value="3">
+                                            Other
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="national_identification_no">Aadhar No <span class="text-danger">*</span></label>
+                                    <input type="text" name="national_identification_no" id="aadhar" class="form-control input-css " value="" placeholder="e.g. 111122223333">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="department">Department</label>
+                                    @Html.DropDownList("department", (IEnumerable<SelectListItem>)ViewBag.Department, null, new { @class = "form-control", @id = "department" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Officer</label>
+                                    @Html.DropDownList("officer", (IEnumerable<SelectListItem>)ViewBag.Officer, null, new { @class = "form-control", @id = "officer" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Visitor Type</label>
+                                    @Html.DropDownList("visitorType", (IEnumerable<SelectListItem>)ViewBag.VisitorType, null, new { @class = "form-control", @id = "visitorType" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Document Type</label>
+                                    @Html.DropDownList("documentType", (IEnumerable<SelectListItem>)ViewBag.DocumentType, null, new { @class = "form-control", @id = "documentType" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="company_name">Company Name</label>
+                                    <input type="text" name="company_name" id="company_name" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="purpose">Purpose <span class="text-danger">*</span></label>
+                                    <textarea name="purpose" class="summernote-simple form-control height-textarea " id="purpose" placeholder="Write here..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="address">Address</label>
+                                    <textarea name="address" class="summernote-simple form-control height-textarea " id="address" placeholder="e.g. xyz"></textarea>
+                                </div>
+                            </div> 
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="address">Address</label>
+                                    <input type="file" id="image" />
+                                </div>
+                            </div>
+
+                           
+
+                        </div>
+                    
+                  
+                    </div>
+
+                    <div class="card-footer ">
+                        <button class="btn btn-primary mr-1" type="submit" onclick="SaveVisitors()">Submit</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
+
+
+
+
+
+
+<script>
+    function SaveVisitors() {
+        debugger
+        if (IsValid() == true) {
+            debugger;
+            var visitorID = document.getElementById('visitorID').value;
+
+            var VisitorModel = new Object();
+
+             VisitorModel.ID = visitorID;
+             VisitorModel.FirstName = $("#first_name").val();
+             VisitorModel.LastName = $("#last_name").val();
+             VisitorModel.CompanyName = $("#company_name").val();
+             VisitorModel.Gender = $("#gender").val();
+             VisitorModel.VisitorType = $("#visitorType").val();
+             VisitorModel.Department = $("#department").val();
+             VisitorModel.Officer = $("#officer").val();
+             VisitorModel.AadharNo = $("#aadhar").val();
+             VisitorModel.DocumentType = $("#documentType").val();
+             VisitorModel.VisitorPic = $("#image").val();
+             VisitorModel.VisitorAddress = $("#address").val();
+             VisitorModel.VisitPurpose  = $("#purpose").val();
+             VisitorModel.Phone = $("#phone").val();
+             VisitorModel.Email = $("#email").val();
+             VisitorModel.TokenNo = $("#tokenno").val();
+
+            var data = JSON.stringify({
+                VisitorModel: VisitorModel     
+            });
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Visitor/AddVisitor",
+                data: data,
+                success: function (result) {
+
+                    if (result.Message == 'SUCCESS') {
+                    var token = result.TokenNo;
+
+                     alert("Save Success!");
+
+                     window.location = '/CheckIn/ShowCheckIn/?token='+token;
+
+          
+                        Swal.fire({
+                            title: 'Sweet!',
+                            text: 'Modal with a custom image.',
+                            imageUrl: 'https://unsplash.it/400/200',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+
+
+
+
+                        });
+
+                        NavigateURL('/CheckIn/Visitor/');
+
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+
+    function IsValid() {
+
+        var Id = $("#visitorID").val();
+        var FirstName = $("#first_name").val();
+        var LastName = $("#last_name").val();
+        var Officer = $("#officer_name").val();
+        var Phone = $("#phone").val();
+        var Email = $("#email").val();
+        var Gender = $("#gender").val();
+        var CompanyName = $("#company_name").val();
+        var AadharNo = $("#aadhar").val();
+        var Purpose =$("#purpose").val();
+        var Address =$("#address").val();
+        var Image = $("image").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (FirstName == "") {
+            document.getElementById('fname').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (LastName == "") {
+            document.getElementById('lname').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Officer == "") {
+            document.getElementById('email').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Phone == "") {
+            document.getElementById('phone').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Email == "") {
+            document.getElementById('joiningdate').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Gender == "") {
+            document.getElementById('gender').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (CompanyName == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (AadharNo == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Purpose == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Address == "") {
+            document.getElementById('password').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (Image == "") {
+            document.getElementById('image').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+        function myFunction() {
+        $('#departmentlists').show();
+        $('#adddepartment').hide();
+    }
+
+    function ShowNewEntry() {
+        $('#departmentlists').hide();
+        $('#adddepartment').show();
+    }
+</script>

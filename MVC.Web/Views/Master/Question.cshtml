@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<div id="tracker-loader"></div>
+<script src="~/js/GetTableJson.js"></script>
+<div class=" content-area" id="divSummary">
+    <div class="page-header">
+        <h4 class="page-title">Revenue Report</h4>
+        <div class="col-sm-7 col-7 text-right m-b-30">
+            <a @*href="add-department.html"*@ class="btn btn btn-primary btn-rounded float-right" title="Summary" onclick="Summary()"> Summary </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Question</label>
+                                    <div class="row gutters-xs">
+                                        <div class="col">
+                                            <input ID="txtques" type="text" readonly="readonly" class="form-control" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover tbl-cart text-nowrap" id="reportTable" style="width:100%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-wrapper" id="Summary" style="display:none">
+
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-5 col-5">
+                <h4 class="page-title">Product Master Summary</h4>
+            </div>
+            <div class="col-sm-7 col-7 text-right m-b-30">
+                <button class="btn btn btn-primary btn-rounded float-right" title="Back" data-toggle="tooltip" data-placement="bottom" onclick="Back()"><i class="fa fa-arrow-left"></i></button>
+
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <button class="btn btn-danger" title="Export To Excel" data-toggle="tooltip" data-placement="bottom" onclick="GetExcelFile()"><i class="fa fa-file-excel-o"></i></button>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover tbl-cart text-nowrap" id="tblWorkOrderOpenList" style="width:100%;"></table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12" style="visibility:hidden">
+                    <div class="form-group">
+                        <label class="form-label mandatory">Search</label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                @Html.TextBox("txtsearch", null, new { @class = "form-control ", @id = "txtsearch", name = "txtsearch", autocomplete = "on" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   <script>
+function Summary() {
+        debugger
+        $("#Entry").hide();
+        $("#Summary").show();
+
+        ShowSummary();
+    }
+
+    function Back() {
+        $("#Summary").hide();
+        $("#Entry").show();
+
+
+    }
+   </script>
+@*<script type="text/javascript">$(window).on('load', function () {
+        $("#tracker-loader").fadeOut("slow");
+    });
+
+
+    $(document).ready(function () {
+        $("#ddlSearchCriteria").on('change',function () {
+
+            if ($("#ddlSearchCriteria").val() == "Line") {
+                $("#divLine").show();
+                $("#divCHA").hide();
+                $("#divImporter").hide();
+                $("#divForwarder").hide();
+            }
+
+            if ($("#ddlSearchCriteria").val() == "CHA") {
+                $("#divLine").hide();
+                $("#divCHA").show();
+                $("#divImporter").hide();
+                $("#divForwarder").hide();
+            }
+
+            if ($("#ddlSearchCriteria").val() == "Importer") {
+                $("#divLine").hide();
+                $("#divCHA").hide();
+                $("#divImporter").show();
+                $("#divForwarder").hide();
+            }
+        });
+
+        $("#btnShow").click(function () {
+            Show();
+        });
+
+        //if ($("#ddJoType").val() == "Forwarder") {
+        //    $("#divLine").hide();
+        //    $("#divCHA").hide();
+        //    $("#divImporter").hide();
+        //    $("#divForwarder").show();
+        //}
+    });</script>*@
+
+@*<script type="text/javascript">function Show() {
+        debugger;
+        $("#tracker-loader").fadeIn("slow");
+
+        var FromDate = $("#FromDate").val();
+        var ToDate = $("#ToDate").val();
+        var ddlSearchCriteria = $("#ddlSearchCriteria").val();
+        var ddJoType = $("#ddJoType").val();
+        var CustomerId = 0;
+
+        if (ddlSearchCriteria == "Line") {
+            CustomerId = $("#ddlLine").val();
+        }
+        if (ddlSearchCriteria == "CHA") {
+            CustomerId = $("#ddlCHA").val();
+        }
+        if (ddlSearchCriteria == "Importer") {
+            CustomerId = $("#ddlImporter").val();
+        }
+
+        var data1 = { 'FromDate': FromDate, 'ToDate': ToDate, 'CustomerType': ddlSearchCriteria, 'JoType': ddJoType, 'CustomerId': CustomerId };
+        data = JSON.stringify(data1);
+
+        // alert(data);
+        $.ajax({
+
+            url: '/Report/getRevenueSummary',
+            type: 'Post',
+            data: data,
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                RepTableDataJson($("#example1"), data, "ContainerRevenueReport", "ContainerRevenueReport");
+                $("#tracker-loader").fadeOut("slow");
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+                $("#tracker-loader").fadeOut("slow");
+            }
+
+
+        });
+    }
+    </script>*@
+
+@*<script>function PrintRevenueReport() {
+        $("#tracker-loader").fadeIn("slow");
+
+        try {
+            debugger;
+            var FromDate = $("#FromDate").val();
+            var ToDate = $("#ToDate").val();
+            var ddlSearchCriteria = $("#ddlSearchCriteria").val();
+            var ddJoType = $("#ddJoType").val();
+            var CustomerId = 0;
+
+            if (ddlSearchCriteria == "Line") {
+                CustomerId = $("#ddlLine").val();
+            }
+            if (ddlSearchCriteria == "CHA") {
+                CustomerId = $("#ddlCHA").val();
+            }
+            if (ddlSearchCriteria == "Importer") {
+                CustomerId = $("#ddlImporter").val();
+            }
+
+            var data1 = { 'FromDate': FromDate, 'ToDate': ToDate, 'CustomerType': ddlSearchCriteria, 'JoType': ddJoType, 'CustomerId': CustomerId };
+            data = JSON.stringify(data1);
+
+            $.ajax({
+                url: '/Report/InvoiceRevenueReportPrint',
+                type: 'Post',
+                data: data,
+                async: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    $("#tracker-loader").fadeOut("slow");
+                    //window.print();
+                    var myWindow = window.open("", "MsgWindow1", 'width=' + screen.availWidth + ',height=' + screen.availHeight + ',resizable=no');
+                    myWindow.close();
+                    var myWindow = window.open("", "MsgWindow1", 'width=' + screen.availWidth + ',height=' + screen.availHeight + ',resizable=no');
+                    myWindow.document.write(response);
+                    //myWindow.print();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                    $("#tracker-loader").fadeOut("slow");
+                }
+            });
+        }
+        catch (ex) {
+            $("#tracker-loader").fadeOut("slow");
+        }
+
+    };
+
+    //$(document).on("load",function () {
+    //    alert('load');
+    //    $("#tracker-loader").fadeOut("slow");
+    //});</script>*@
+
+
+<script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+<script>
+
+
+
+</script>

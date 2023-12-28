@@ -1,0 +1,743 @@
+﻿
+@{
+    ViewBag.Title = "Officer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<MVC.Domain.Model.EmployeeModel>
+
+
+
+<div class="section-header">
+    <h1>Officer</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item active">Officer</li>
+
+    </ol>
+
+
+</div>
+
+
+
+<div class="section-body" id="addEmployee" style="display:none">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <button class="btn btn-icon icon-left btn-primary" id="HideBtn" onclick="myFunction();"><i class=" fas fa-solid fa-list"></i>Show List</button>
+                </div>
+                <div class="card-body">
+                    <input type="text" style="display:none;" id="employeeID" value="0">
+                    <div class="card-body">
+
+
+                        <div class="form-row" style="display:none;">
+
+
+
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <label for="first_name">ID</label> <span class="text-danger">*</span>
+                                <input id="employeeID1" type="text" name="ID" class="form-control" placeholder="NEW" readonly>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+
+                            <div class="group col">
+                                <label for="first_name">First Name</label> <span class="text-danger">*</span>
+                                <input id="fname" type="text" name="first_name" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="last_name">Last Name</label> <span class="text-danger">*</span>
+                                <input id="lname" type="text" name="last_name" class="form-control " value="">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>E-Mail Address</label> <span class="text-danger">*</span>
+                                <input type="email" name="email" id="email" class="form-control " autocomplete="off" value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Phone</label> <span class="text-danger">*</span>
+                                <input type="tel" maxlength="12" id="phone" name="phone" class="form-control " value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Joining Date</label> <span class="text-danger">*</span>
+                                <input type="date" autocomplete="off" id="joiningdate" class="form-control">
+
+
+
+                                @*<input type="date" class="form-control" id="joiningdate"
+                                       name="val_AttendedDate" placeholder="New" value="@DateTime.Now.AddMonths(0).ToString("yyyy-MM-dd")">*@
+                            </div>
+                            <div class="form-group col">
+                                <label for="gender">Gender</label> <span class="text-danger">*</span>
+                                <select id="gender" name="gender" class="form-control ">
+                                    <option value="1">
+                                        Male
+                                    </option>
+                                    <option value="2">
+                                        Female
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="department_id">Department</label> <span class="text-danger">*</span>
+                                @Html.DropDownList("department", (IEnumerable<SelectListItem>)ViewBag.Department, null, new { @class = "form-control" ,@id = "department"  })
+                            </div>
+                            <div class="form-group col">
+                                <label for="designation_id">Designation</label> <span class="text-danger">*</span>
+                                @Html.DropDownList("designation", (IEnumerable<SelectListItem>)ViewBag.Designation, null, new { @class = "form-control", @id = "designation" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Password</label> <span class="text-danger">*</span>
+                                <input type="password" id="password1" name="password" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Confirm Password</label> <span class="text-danger">*</span>
+                                <input type="password" id="password2" name="password_confirmation" class="form-control " value="">
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="about">About</label>
+                                <textarea name="about" class="form-control height-textarea " placeholder="Write the About " id="about">                                    
+                                    </textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Status</label> <span class="text-danger">*</span>
+                                <select name="status" id="isActive" class="form-control ">
+                                    <option value="1">
+                                        Active
+                                    </option>
+                                    <option value="0">
+                                        Inactive
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="customFile">Image</label>
+                                <div class="custom-file">
+                                    <input name="image" type="file" accept="image/*" class="custom-file-input " id="image" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                                <img id="blah" alt="your image" class="img-thumbnail image-width mt-4 mb-3" width="100" height="100" src="https://demo.quickpass.xyz/assets/img/default/user.png" />
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="card-footer ">
+                        <button class="btn btn-primary mr-1" type="submit" id="SaveBtn" onclick="SaveEmployee();">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="section-body" id="employeeList">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-icon icon-left btn-primary" onclick="ShowNewEntry();"><i class="fas fa-plus"></i> Add Officer</button>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped dataTable no-footer">
+                            <thead>
+                                <tr>
+
+                                    <th class="wd-15p sorting">ID</th>
+                                    <th class="wd-15p sorting">Profilepic</th>
+                                    <th class="wd-15p sorting">FirstName</th>
+                                    <th class="wd-15p sorting">LastName</th>
+                                    <th class="wd-15p sorting">Email</th>
+                                    <th class="wd-15p sorting">Phone</th>
+                                    <th class="wd-15p sorting">Gender</th>
+                                    <th class="wd-15p sorting">Department</th>
+                                    <th class="wd-15p sorting">Designation</th>
+                                    <th class="wd-15p sorting">IsActive</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                <tr>
+
+                                    <td>@item.ID</td>
+                                    <td>
+                                        @if (@item.Image != "")
+                                        {
+                                            <img src="~/Images/OfficersImgs/@item.Image" height="50" width="50" style="border-radius:50%" />
+                                        }
+                                        else
+                                        {
+
+                                            <img src="~/assets/img/default/temp_UserImg.png" height="50" />
+                                        }
+
+                                    </td>
+
+
+
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    <td>
+
+                                        @if (@item.Gender == 1)
+                                        {
+                                            <span>Male</span>
+
+                                        }
+
+                                        else if (@item.Gender == 2)
+                                        {
+
+
+                                            <span>Female</span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>Other</span>
+                                        }
+                                    </td>
+                                    <td>@item.DepartmentName</td>
+                                    <td>@item.DesignationName</td>
+                                    <td>
+                                        @if (@item.IsActive == 1)
+                                        {
+                                            <span class="badge badge-success">Active</span>
+
+                                        }
+
+                                        else
+                                        {
+                                            <span class="badge badge-danger">InActive</span>
+
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-icon btn-primary" data-original-title="Edit" data-toggle="tooltip" onclick="EditEmployee(@item.ID)">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-icon btn-danger delete" data-original-title="Delete" data-toggle="tooltip" onclick="DeleteEmployee(@item.ID)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+
+
+
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="PhotoForedit" value="" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+   
+
+     function FetchUserDetails(ID,FirstName,LastName,Email,Phone,JoiningDate,Gender,Department,Designation,Password,About,Image,IsActive) {
+           debugger;
+       document.getElementById('addEmployee').style.display = 'block';
+       document.getElementById('employeeList').style.display = 'none';
+
+        debugger;
+
+
+        $("#employeeID").val(ID);
+        $("#fname").val(FirstName);
+        $("#lname").val(LastName);
+        $("#email").val(Email);
+        $("#phone").val(Phone);
+        $("#joiningdate").val(JoiningDate);
+        $("#gender").val(Gender);
+        $("#department").val(Department);
+        $("#designation").val(Designation);
+        $("#password").val(Password);
+        $("#about").val(About);
+        $("#image").val(Image);
+    
+        $("#IsActive").val(IsActive);
+
+
+    }
+</script>
+
+
+<script type="text/javascript">
+    function myFunction() {
+        $('#employeeList').show();
+        $('#addEmployee').hide();
+    }
+
+    function ShowNewEntry() {
+        $('#employeeList').hide();
+        $('#addEmployee').show();
+    }
+</script>
+
+
+<script>
+
+        
+function SaveEmployee() {
+       debugger;
+    if ( IsValid() == true){
+
+    if (window.FormData !== undefined) {
+        $("#SaveBtn").prop("disabled", true);
+
+        var fileUpload1 = $("#image").get(0);
+        var files = fileUpload1.files;
+
+        var formdata = new FormData();
+
+        if ($('#image')[0].files.length !== 0) {
+         
+            formdata.append(files[0].name, files[0]);
+        }
+
+    debugger
+        formdata.append('ID', document.getElementById("employeeID").value);
+        formdata.append('FirstName', document.getElementById("fname").value);
+        formdata.append('LastName', document.getElementById("lname").value);
+        formdata.append('Email', document.getElementById("email").value);
+        formdata.append('Phone', document.getElementById("phone").value);
+        formdata.append('JoiningDate', document.getElementById("joiningdate").value);
+        formdata.append('Gender', document.getElementById("gender").value);
+        formdata.append('Department', document.getElementById("department").value);
+        formdata.append('Designation', document.getElementById("designation").value);
+        formdata.append('Password1', document.getElementById("password1").value);
+        formdata.append('Password2', document.getElementById("password2").value);
+        formdata.append('About', document.getElementById("about").value);
+        formdata.append('Image', document.getElementById("image").value);
+        formdata.append('IsActive', document.getElementById("isActive").value);
+         formdata.append('PhotoForedit', document.getElementById("PhotoForedit").value);
+  return $.ajax({
+            url: "/Employee/AddEmployee",
+            type: 'POST',
+            data: formdata,
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+
+                    if (result == 'SUCCESS') {
+
+                        Swal.fire({
+                        title: "Good job!",
+                        text: "Officer Saved!",
+                        icon: "success"
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+    } else {
+        alert('FormData is not supported in this browser.');
+    }
+}
+   
+}
+
+
+
+    function IsValid() {
+
+        var Id = $("#employeeID").val();
+        var FirstName = $("#fname").val();
+        var LastName = $("#lname").val();
+        var Email = $("#email").val();
+        var Phone = $("#phone").val();
+        var JoiningDate = $("#joiningdate").val();
+        var Gender = $("#gender").val();
+        var Department = $("#department").val();
+        var Designation = $("#designation").val();
+        var Password1 =$("#password1").val();
+        var Password2 =$("#password2").val();
+        var IsActive = $("isActive").val();
+        var About = $("about").val();
+        var Image = $("image").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (FirstName == "") {
+            document.getElementById('fname').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (LastName == "") {
+            document.getElementById('lname').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Email == "") {
+            document.getElementById('email').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Phone == "") {
+            document.getElementById('phone').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (JoiningDate == "") {
+            document.getElementById('joiningdate').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Gender == "") {
+            document.getElementById('gender').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+    
+        if (Department == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Designation == "") {
+            document.getElementById('designation').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Password1 == "") {
+            document.getElementById('password1').style.borderColor = "red"
+            blResult = blResult && false;
+        }  
+       if (Password2 == "") {
+            document.getElementById('password2').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+    if (Password1!== Password2) {
+            document.getElementById('password2').style.borderColor = "red";
+    alert ('Password Not Match !');
+            blResult = blResult && false;
+        }
+    
+        if (IsActive == "") {
+            document.getElementById('isActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Image == "") {
+            document.getElementById('image').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (About == "") {
+            document.getElementById('about').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+      $(document).ready( function () {
+    $('#dtExample').DataTable();
+} )
+
+</script>
+
+
+<script>
+    function EditEmployee(ID) {
+    debugger
+
+            document.getElementById('addEmployee').style.display = 'block';
+            document.getElementById('employeeList').style.display = 'none';
+
+      
+            $.ajax({
+                url: "/Employee/GetEmployeeByID",
+                    data: '{ID: ' + ID + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                    $("#employeeID").val(data.ID);
+
+                    $("#fname").val(data.FirstName);
+  
+                    $("#lname").val(data.LastName);
+
+                    $("#email").val(data.Email);
+  
+                    $("#phone").val(data.Phone);
+                        
+                    $("#joiningdate").val(data.JoiningDate);
+
+                    $("#gender").val(data.Gender);
+
+                    $("#department").val(data.Department);
+
+                    $("#designation").val(data.Designation);
+
+
+                    $("#password1").val(data.Password1);
+
+
+                    $("#password2").val(data.Password2);
+
+                    $("#isActive").val(data.IsActive);
+   
+
+                    $("#about").val(data.About);
+  
+                    $("#PhotoForedit").val(data.Image);
+                    var dataImage = data.Image;
+                    var newImageUrl = "/Images/OfficersImgs/" + dataImage;
+
+                    $("#blah").attr("src", newImageUrl);
+
+    
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                  //  $("#tracker-loader").fadeOut("slow");
+                }
+            });
+
+        }
+</script>
+
+<script>
+     function DeleteEmployee(ID) {
+        debugger;
+      var data1 = { 'ID': ID };
+                var data = JSON.stringify(data1);
+
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/Employee/InActiveEmployee',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+   
+                    success: function (data) {
+                    location.reload();
+                        ViewPhotos();
+                    },
+                    error: function (error) {
+                        let str = error.responseText;
+                        var a = str.indexOf("<title>") + 7;
+                        var b = str.indexOf("</title>");
+                        str = str.substring(a, b);
+                        alert("Something went wrong: " + str);
+                    }
+                });
+    }
+
+</script>
+
+
+
+
+<script>
+    function ekUpload(){
+  function Init() {
+
+    console.log("Upload Initialised");
+
+    var fileSelect    = document.getElementById('file-upload'),
+        fileDrag      = document.getElementById('file-drag'),
+        submitButton  = document.getElementById('submit-button');
+
+    fileSelect.addEventListener('change', fileSelectHandler, false);
+
+    // Is XHR2 available?
+    var xhr = new XMLHttpRequest();
+    if (xhr.upload) {
+      // File Drop
+      fileDrag.addEventListener('dragover', fileDragHover, false);
+      fileDrag.addEventListener('dragleave', fileDragHover, false);
+      fileDrag.addEventListener('drop', fileSelectHandler, false);
+    }
+  }
+
+  function fileDragHover(e) {
+    var fileDrag = document.getElementById('file-drag');
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+  }
+
+  function fileSelectHandler(e) {
+    // Fetch FileList object
+    var files = e.target.files || e.dataTransfer.files;
+
+    // Cancel event and hover styling
+    fileDragHover(e);
+
+    // Process all File objects
+    for (var i = 0, f; f = files[i]; i++) {
+      parseFile(f);
+      uploadFile(f);
+    }
+  }
+
+  // Output
+  function output(msg) {
+    // Response
+    var m = document.getElementById('messages');
+    m.innerHTML = msg;
+  }
+
+  function parseFile(file) {
+
+    console.log(file.name);
+    output(
+      '<strong>' + encodeURI(file.name) + '</strong>'
+    );
+    
+    // var fileType = file.type;
+    // console.log(fileType);
+    var imageName = file.name;
+
+    var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+    if (isGood) {
+      document.getElementById('start').classList.add("hidden");
+      document.getElementById('response').classList.remove("hidden");
+      document.getElementById('notimage').classList.add("hidden");
+      // Thumbnail Preview
+      document.getElementById('file-image').classList.remove("hidden");
+      document.getElementById('file-image').src = URL.createObjectURL(file);
+    }
+    else {
+      document.getElementById('file-image').classList.add("hidden");
+      document.getElementById('notimage').classList.remove("hidden");
+      document.getElementById('start').classList.remove("hidden");
+      document.getElementById('response').classList.add("hidden");
+      document.getElementById("file-upload-form").reset();
+    }
+  }
+
+  function setProgressMaxValue(e) {
+    var pBar = document.getElementById('file-progress');
+
+    if (e.lengthComputable) {
+      pBar.max = e.total;
+    }
+  }
+
+  function updateFileProgress(e) {
+    var pBar = document.getElementById('file-progress');
+
+    if (e.lengthComputable) {
+      pBar.value = e.loaded;
+    }
+  }
+
+  function uploadFile(file) {
+
+    var xhr = new XMLHttpRequest(),
+      fileInput = document.getElementById('class-roster-file'),
+      pBar = document.getElementById('file-progress'),
+      fileSizeLimit = 1024; // In MB
+    if (xhr.upload) {
+      // Check if file is less than x MB
+      if (file.size <= fileSizeLimit * 1024 * 1024) {
+        // Progress bar
+        pBar.style.display = 'inline';
+        xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+        xhr.upload.addEventListener('progress', updateFileProgress, false);
+
+        // File received / failed
+        xhr.onreadystatechange = function(e) {
+          if (xhr.readyState == 4) {
+            // Everything is good!
+
+            // progress.className = (xhr.status == 200 ? "success" : "failure");
+            // document.location.reload(true);
+          }
+        };
+
+        // Start upload
+        xhr.open('POST', document.getElementById('file-upload-form').action, true);
+        xhr.setRequestHeader('X-File-Name', file.name);
+        xhr.setRequestHeader('X-File-Size', file.size);
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+        xhr.send(file);
+      } else {
+        output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+      }
+    }
+  }
+
+  // Check for the various File API support.
+  if (window.File && window.FileList && window.FileReader) {
+    Init();
+  } else {
+    document.getElementById('file-drag').style.display = 'none';
+  }
+}
+ekUpload();
+</script>

@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Return";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<div class="container custom-prereg">
+    <div class="card" style="margin-top:40px;">
+
+        <div class="card-body">
+            <div style="margin: auto;">
+                <form method="POST" action= @Url.Action("StepOne", "CheckIn") accept-charset="UTF-8" id="myForm">
+                    <input name="_token" type="hidden" value="wpcyUKJsFkn6I2HGGyiwpDgbfO5LFQgKNA6KsaWC">
+                    <div class="save">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 left-side">
+                                <h4 style="color: #111570;font-weight: bold">Return Visitor Details</h4>
+
+                                <div class="form-group ">
+                                    <label for="email" class="control-label heading">Visitor's Email or Phone or NID<span class='text-danger'>*</span></label>
+                                    <input class="form-control input" id="email" placeholder="Search email , phone or national ID.." name="email" type="text" id="email">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                         <a href="@Url.Action("Index", "Home")"  class="btn cancel text-light float-left ">
+                                            Cancel
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" class="btn text-light float-right continue" id="continue">
+                                            Continue
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 right-image">
+                                <img src="https://demo.quickpass.xyz/frontend/images/sample.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

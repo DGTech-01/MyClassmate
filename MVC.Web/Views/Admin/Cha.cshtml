@@ -1,0 +1,599 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #add_master {
+        display: none;
+    }
+
+    #backbtn {
+        text-align: right;
+        float: right;
+        margin-right: 5px;
+    }
+</style>
+
+<div class="section-header">
+    <h1>CHA - Register</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item active">CHA - Register</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body" id="list_chasummary">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button type="button" onclick="hideAddPage()" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Add CHA</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="maintable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table id="example" class="table table-striped dataTable no-footer">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">ID</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">FirstName</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">LastName</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">CHACode</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">EmailID</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">RegistrationDate</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">Gender</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">IsActive</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+
+                                                        <td>@item.ID</td>
+                                                        <td>@item.FirstName</td>
+                                                        <td>@item.LastName</td>
+                                                        <td>@item.CHACode</td>
+                                                        <td>@item.EmailID</td>
+                                                        <td>@item.RegistrationDate</td>
+
+                                                        <td>
+
+                                                            @if (@item.Gender == "1")
+                                                            {
+                                                                <span>Male</span>
+
+                                                            }
+
+                                                            else if (@item.Gender == "2")
+                                                            {
+
+
+                                                                <span>Female</span>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Other</span>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @if (@item.IsActive == 1)
+                                                            {
+                                                                <span class="badge badge-success">Active</span>
+
+                                                            }
+
+                                                            else
+                                                            {
+                                                                <span class="badge badge-danger">InActive</span>
+
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group" role="group">
+                                                                <a href="#" onclick="Fetch('@item.ID')" class="btn btn-sm btn-icon mr-2 btn-info" data-toggle="tooltip" data-placement="top" title="View">
+                                                                    <i class="far fa-eye"></i>
+                                                                </a>
+                                                                @if (item.IsApprove == true)
+                                                                {
+                                                            <a href="#" class="btn btn-sm btn-icon btn-secondary" data-toggle="tooltip" data-placement="top" title="Approved" disabled>
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+
+                                                                }
+                                                                else
+                                                                {
+
+                                                                    <a href="#" class="btn btn-sm btn-icon btn-primary" onclick="Accept('@item.ID')" data-toggle="tooltip" data-placement="top" title="Approve">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
+                                                                }
+
+
+
+                                                                <a class="btn btn-sm btn-icon btn-danger" href="#" onclick="Reject('@item.ID')" data-toggle="tooltip" data-placement="top" title="Reject">
+                                                                    <i class="fa fa-mark">X</i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section-body" id="add_master">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <button class="btn btn-icon icon-left btn-primary" id="HideBtn" onclick="showAddPage();"><i class="fas fa-plus"></i>Show List</button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">
+                    <div class="visitor" id="visitor">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="first_name">CHA First Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="FirstName" id="FirstName" class="form-control input-css " value="" placeholder="e.g. xyz">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">CHA Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="LastName" id="LastName" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">E-mail</label>
+                                    <input type="email" name="EmailID" id="EmailID" class="form-control input-css " value="" placeholder="e.g. xyz@mail.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">CHA Code <span class="text-danger">*</span></label>
+                                    <input type="text" name="CHACode" id="CHACode" class="form-control input-css " value="" placeholder="e.g. xyz">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Phone <span class="text-danger">*</span><span class="text-info"> (With Country Code,Without + sign)</span></label>
+                                    <input type="text" maxlength="10" name="MobileNumber" id="MobileNumber" class="form-control input-css " value="" placeholder="e.g. 910000000000">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="gender">Gender</label>
+                                    <select id="gender" name="gender" class="form-control input-css ">
+                                        <option value="">--Select Gender--</option>
+                                        <option value="1">
+                                            Male
+                                        </option>
+                                        <option value="2">
+                                            Female
+                                        </option>
+                                        <option value="3">
+                                            Other
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="file">User Type Id</label>
+                                    <select name="status" id="userTypeID" class="form-control ">
+                                        <option value="">--Select User Type --</option>
+                                        <option value="2">
+                                            CHA
+                                        </option>
+                                        <option value="3">
+                                            Security Officer
+                                        </option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-6">
+                                <label for="customFile">Choose Document</label>
+                                <div class="custom-file">
+                                    <input name="image" type="file" accept="" class="custom-file-input " id="Document">
+
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Registration Date</label>
+                                    <input type="date" name="RegistrationDate" id="registrationDate" class="form-control input-css " value="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="label-css" for="file">Is Active</label>
+                                    <select name="status" id="isActive" class="form-control ">
+                                        <option value="1">
+                                            Active
+                                        </option>
+                                        <option value="0">
+                                            Inactive
+                                        </option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Password</label>
+                                    <input type="password" name="Password" id="password" class="form-control input-css " value="" placeholder="e.g. 1234">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label class="label-css" for="">Confirm Password</label>
+                                    <input type="text" name="confirm_password" id="password2" class="form-control input-css " value="" placeholder="e.g. 1234">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <a href="" class="btn btn-danger float-left">
+                                    <span class="">Cancel</span>
+                                </a>
+
+                                <input type="hidden" id="ChaID" name="hdnComplaintID" value="0" />
+                                <button type="submit" class="btn float-left btn-primary" id="continue" onclick="Save()">
+                                    Save
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<input type="hidden" id="DocumentName" />
+
+<script>
+
+
+     function Fetch(ID) {
+
+                $("#continue").prop("disabled", true);
+
+
+            document.getElementById('add_master').style.display = 'block';
+            document.getElementById('list_chasummary').style.display = 'none';
+
+            $.ajax({
+                url: "/Admin/GetCHaAnalysisDetails",
+                data: '{ID:' + ID + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    //debugger;
+
+
+                    $("#FirstName").val(data.FirstName);
+                    $("#LastName").val(data.LastName);
+                    $("#userTypeID").val(data.UserTypeID);
+                    $("#CHACode").val(data.CHACode);
+                    $("#MobileNumber").val(data.MobileNumber);
+                    $("#EmailID").val(data.EmailID);
+                    $("#password").val(data.Password);
+                    $("#isActive").val(data.IsActive);
+                    $("#gender").val(data.Gender);
+                    $("#registrationDate").val(data.RegistrationDate);
+                    $("#DocumentName").val(data.Document);
+
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                    $("#tracker-loader").fadeOut("slow");
+                }
+            });
+
+
+        }
+
+     function hideAddPage() {
+        $('#add_master').show();
+        $('#list_chasummary').hide();
+    }
+
+function showAddPage() {
+      $('#add_master').hide();
+        $('#list_chasummary').show();
+    }
+</script>
+
+<script>
+
+     function Reject(ID) {
+
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Admin/CHaReject",
+                data: '{ID:' +ID +'}',
+                success: function (message) {
+
+                    if (message == 'SUCCESS') {
+                  Swal.fire({
+                        title: "Good job!",
+                        text: "Rejected Successfully!",
+                        icon: "success"
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+
+    function Accept(ID) {
+    debugger
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/Admin/CHaAccept",
+            data: '{ID:' + ID + '}',
+            success: function (message) {
+            debugger
+                if (message == 'SUCCESS') {        
+                     Swal.fire({
+                        title: "Good job!",
+                        text: "Approved Successfully!",
+                        icon: "success"
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+                }
+                else {
+                    alert("Save failed!");
+                }
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+  function Save() {
+    if (IsValid()) {
+
+        if (window.FormData !== undefined) {
+           debugger
+
+           var fileUpload1 = $("#Document").get(0);
+            var files = fileUpload1.files;
+            var formdata = new FormData();
+
+            if ($('#Document')[0].files.length !== 0) {
+                formdata.append(files[0].name, files[0]);
+            }
+
+            formdata.append('ID', document.getElementById("ChaID").value);
+            formdata.append('FirstName', document.getElementById("FirstName").value);
+            formdata.append('LastName', document.getElementById("LastName").value);
+            formdata.append('UserTypeID', document.getElementById("userTypeID").value);
+            formdata.append('CHACode', document.getElementById("CHACode").value);
+            formdata.append('MobileNumber', document.getElementById("MobileNumber").value);
+            formdata.append('EmailID', document.getElementById("EmailID").value);
+            formdata.append('Password', document.getElementById("password").value);
+            formdata.append('IsActive', document.getElementById("isActive").value);
+            formdata.append('Gender', document.getElementById("gender").value);        
+            formdata.append('RegistrationDate', document.getElementById("registrationDate").value);   
+
+            return $.ajax({
+                url: "/Home/ChaRegister",
+                type: 'POST',
+                data: formdata,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (message) {
+                debugger
+                    if (message == 'SUCCESS') {
+                        //var token = result.TokenNo;
+                        //alert("Save Success!");
+
+                        Swal.fire({
+                        title: "Good job!",
+                        text: "CHA Saved!",
+                        icon: "success"
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            // Reload the page
+                            location.reload();
+                        }
+                    });
+
+
+
+                    }
+                     else {
+                        Swal.fire({
+                            text: 'Save Failed, please fill all the Detials',
+                            icon: 'warning',
+                            showCancelButton: true,  // Show the "OK" button
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
+        else {
+            alert('FormData is not supported in this browser.');
+        }
+    }
+}
+
+    function IsValid() {
+
+
+        var FirstName = $("#FirstName").val();
+        var LastName = $("#LastName").val();
+        var UserTypeID = $("#userTypeID").val();
+        var CHACode = $("#CHACode").val();
+        var Document = $("#Document").val();
+        var MobileNumber = $("#MobileNumber").val();
+        var EmailID = $("#EmailID").val();
+        var Password = $("#password").val();
+        var Password2 = $("#password2").val();
+        var IsActive = $("#isActive").val();
+        var Gender = $("gender").val();
+
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+
+        if (FirstName == "") {
+            document.getElementById('FirstName').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (LastName == "") {
+            document.getElementById('LastName').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (UserTypeID == "") {
+            document.getElementById('userTypeID').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (CHACode == "") {
+            document.getElementById('CHACode').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Document == "") {
+            document.getElementById('Document').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (MobileNumber == "") {
+            document.getElementById('MobileNumber').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (EmailID == "") {
+            document.getElementById('EmailID').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+
+        if (IsActive == "") {
+            document.getElementById('isActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Gender == "") {
+            document.getElementById('gender').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Password !== Password2) {
+            document.getElementById('password').style.borderColor = "red";
+            document.getElementById('password2').style.borderColor = "red";
+            alert('Password Not Match !');
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+</script>
+
+

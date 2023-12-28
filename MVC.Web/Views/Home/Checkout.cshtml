@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<div class="container custom-prereg">
+    <div class="card" style="margin-top:40px;">
+        <div class="card-body">
+            <div style="margin: auto;">
+                <input name="_token" type="hidden" value="wpcyUKJsFkn6I2HGGyiwpDgbfO5LFQgKNA6KsaWC">
+                <div class="save">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 left-side">
+                            <h4 style="color: #111570;font-weight: bold">
+                                Check-Out Visitor
+                            </h4>
+                            <div class="form-group ">
+                                <label for="visitorID" class="control-label">
+                                    Visitor ID<span class='text-danger'>*</span>
+                                </label>
+                                <input class="form-control input" id="visitorID" placeholder="Search visitorID.." name="visitorID" type="text" id="visitorID">
+                                <!--  -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="@Url.Action("Index", "Home")" class="btn cancel float-left text-light ">
+                                        Cancel
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn continue float-right text-light" id="continue" onclick="ShowCard()">
+                                        Continue
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" >
+                            <div class="card" style="border: 0;">
+                                <div class="card-body">
+                                    <div class="id-card-hook"></div>
+                                    <div class="img-cards" id="printidcard">
+                                        <div class="id-card-holder">
+                                            <div class="id-card">
+                                                <div class="id-card-photo">
+                                                    <img src="https://demo.quickpass.xyz//storage/28/06.jpg" alt="">
+                                                </div>
+                                                <h2>Annabel Dietrich</h2>
+                                                <h3>Ph:36596456356</h3>
+                                                <h3>ID#18092212</h3>
+                                                <h3>xyz</h3>
+                                                <h3>Sakinaka, Mumbai</h3>
+                                                <h2>VISITED TO</h2>
+                                                <h3>
+                                                    visitor.host: Bowen Webster
+                                                </h3>
+                                                <hr>
+                                                <p><strong>Visitor Pass </strong></p>
+                                                <p><strong>Mumbai, India </strong></p>
+                                                <p>Ph: | E-mail: info@inilabs.xyz </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-4">
+                                            <div class="justify-content-center">
+                                                <a class="checkout" href="#">
+                                                    <span>Check Out</span>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      
+      
+    </script>
+</div>

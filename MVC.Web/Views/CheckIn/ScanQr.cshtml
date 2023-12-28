@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_FrontendLayout.cshtml";
+}
+
+<style>
+    .Scanned_Details {
+        border: none;
+        background: none !important;
+        padding-top: calc(0.375rem + 1px);
+        padding-bottom: calc(0.375rem + 1px);
+        margin-bottom: 0;
+        font-size: inherit;
+        line-height: 1;
+        color: black !important;
+    }
+
+    .Scanned_Lable {
+        padding-top: calc(0.375rem + 1px);
+        padding-bottom: calc(0.375rem + 1px);
+        margin-bottom: 0;
+        font-size: inherit;
+        color:black !important;
+    }
+</style>
+
+<div class="pm-banner-content">
+    <div class="row">
+        <div class="col-md-12 d-flex">
+            <div class="pm-banner-text pm-headline pera-content col-md-6">
+                <span class="pm-title-tag">&nbsp;&nbsp;&nbsp;&nbsp;JNCH Visitor Pass</span>
+                <br><br>
+                <h2>JNCH Visitor</h2>
+               
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-lg-3">
+                        <div class="resultImage">
+                            <img src="~/assets/img/myimg/valid.png" id="validimg" style="display:none" />
+                            <img src="~/assets/img/myimg/invalid.png" id="invalidimg" style="display:none" />
+                        </div>
+                    </div>
+                    <div class="col-lg-9" id="Details_after_Scan" style="display:none;">
+                        <div class="row">
+                            <label for="visitorName" class="Scanned_Lable">Visitor Name:</label>
+                            <div class="col-md-6">
+                                <input type="text" name="visitorName" id="visitorName" readonly class="form-control Scanned_Details" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="visitorToken" class="Scanned_Lable">Visitor Token:</label>
+                            <div class="col-md-6">
+                                <input type="text" name="visitorToken" id="visitorToken" readonly class="form-control Scanned_Details" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="visitorOfficer" class="Scanned_Lable">Visitor Officer:</label>
+                            <div class="col-md-6">
+                                <input type="text" name="visitorOfficer" id="visitorOfficer" readonly class="form-control Scanned_Details" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="visitorDepartment" class="Scanned_Lable">Visitor Department:</label>
+                            <div class="col-md-6">
+                                <input type="text" name="visitorDepartment" id="visitorDepartment" readonly class="form-control Scanned_Details" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                @*<div class="d-flex">
+                    <div class="ei-banner-btn">
+                        <a href="@Url.Action("StepOne", "CheckIn")">
+                            <span>Check-in</span>
+                        </a>
+                    </div>
+                    <div class="ei-banner-btn ml-2">
+                        <a href="@Url.Action("ScanQr", "CheckIn")">
+                            <span>Scan QR</span>
+                        </a>
+                    </div>
+                </div>*@
+            </div>
+            <div class="pm-banenr-vedio d-flex justify-content-end col-md-6 vedioPreview">
+               
+                <div class="modal-body">
+
+
+                    <!-- QR SCANNER CODE BELOW  -->
+                    <div class="col">
+                        <div class="col">
+                            <div id="reader"></div>
+                        </div>
+                        <div class="col" style="padding: 30px">
+                            @*<h4>Scan Result </h4>*@
+                            <div id="result">
+                                Result goes here
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.2.0/html5-qrcode.min.js"></script>
+
+<script>
+    // When scan is successful, the function will process the data
+function onScanSuccess(qrCodeMessage) {
+    document.getElementById("result").innerHTML =
+        '<span class="result">' + qrCodeMessage + "</span>";
+
+    ValidateVisitor(qrCodeMessage);
+
+    $("#ScanResult").val(qrCodeMessage);
+
+
+}
+
+// When scan is unsuccessful, the function will handle the error message
+function onScanError(errorMessage) {
+    // Handle Scan Error
+}
+
+// Setting up Qr Scanner properties
+var html5QrCodeScanner = new Html5QrcodeScanner("reader", {
+    fps: 10,
+    qrbox: 250
+});
+
+// Initialize the QR code scanner
+html5QrCodeScanner.render(onScanSuccess, onScanError);
+
+</script>
+<script>
+function ValidateVisitor(qrCodeMessage) {
+    $("#qrCodeMessage").val(qrCodeMessage);
+
+
+    $.ajax({
+        data: { Token: qrCodeMessage },
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "/CheckIn/ValidateVisitor",
+        success: function (result) {
+    debugger
+            if (result.Message == 'SUCCESS') {
+                var token = result.TokenNo;       
+                $("#validimg").show();
+     $("#invalidimg").hide();
+                AddVisitorCheckIn(qrCodeMessage); 
+            } 
+    else {
+    debugger
+                //alert("Invalid QR!");
+               $("#invalidimg").show();
+               $("#validimg").hide();
+               $("#Details_after_Scan").hide();
+                beep();
+            }
+        }
+
+    });
+}
+
+
+ function ViewVisitorPassDetails(qrCodeMessage) {
+    debugger
+        $("#qrCodeMessage").val(qrCodeMessage);
+    $("#Details_after_Scan").show();
+     $("#result").hide();
+    //alert(qrCodeMessage);
+            $.ajax({
+                url: "/CheckIn/ViewVisitorPassDetails",
+                    data: '{token: ' + qrCodeMessage + '}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                    $("#visitorName").val(data.FirstName);
+
+                    $("#visitorToken").val(data.TokenNo);
+
+                    $("#visitorOfficer").val(data.OfficerName);
+
+                    $("#visitorDepartment").val(data.DepartmentName);
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                  //  $("#tracker-loader").fadeOut("slow");
+                }
+            });
+
+        }
+
+
+    
+      function hideAddPage() {
+        $('#passDetails').show();
+        $('#resultBox').hide();
+    }
+
+
+    function AddVisitorCheckIn(qrCodeMessage) {
+    // Use a try-catch block to handle any potential errors
+    try {
+    debugger
+        // Make an AJAX request
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/CheckIn/AddVisitorCheckIn",
+            data: JSON.stringify({ Token: qrCodeMessage }), // Send data as JSON string
+            success: function (message) {
+    debugger
+                // Check the result from the server
+                if (message === 'SUCCESS') {
+                    // If successful, show an alert and call another function
+                    //alert('Check-in successful');
+                    ViewVisitorPassDetails(qrCodeMessage);
+                } else {
+                    // If unsuccessful, show an alert
+                    alert('Check-in unsuccessful');
+                }
+            },
+            error: function () {
+                // Handle AJAX error
+                alert('Error during AJAX request');
+            }
+        });
+    } catch (error) {
+        // Handle any unexpected errors
+        console.error('An error occurred:', error);
+    }
+}
+
+
+    function beep() {
+    var audio = new Audio('/assets/sound/mixkit-classic-alarm-995.wav'); // Replace with the path to your beep sound file
+    audio.play();
+}
+
+</script>

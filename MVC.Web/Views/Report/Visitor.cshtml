@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Visitor";
+    if (ViewBag.roleid == 2)
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+}
+
+<div id="visitorList">
+    <div class="section-header">
+        <h1>Visitor Report</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+            <li class="breadcrumb-item active">Visitors</li>
+        </ol>
+    </div>
+
+    <div class="section-body">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST">
+                    <input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P">                        <div class="row">
+                        <div class="col-lg-4 col-sm-4">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <input type="date" name="from_date" id="val_start_date" class="form-control  datepicker">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-4">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <input type="date" name="to_date" id="val_to_date" class="form-control  datepicker">
+                            </div>
+                        </div>
+                        <div class="col-lg-1" style="margin-top: 30px;">
+                            <button class="btn btn-primary" onclick="FetchVisitorReportDetails()"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="col-lg-2" style="margin-top: 30px;">
+
+                            <button class="btn btn-success" name="btnExport" onclick="downloadExcelTemplate()">Export to Excel</button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<input id="visitorID" type="hidden" value="0" />
+<div id="viewVisitors"></div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>   
+    function FetchVisitorReportDetails() {
+    debugger
+    var Start = $("#val_start_date").val();
+    var End = $("#val_to_date").val();
+
+    var requestData = {
+        StartDate: Start,
+        EndDate: End
+    };
+
+    $.ajax({
+        url: "/Report/GetVisitorReportDetailsList",
+        data: JSON.stringify(requestData),
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+    debugger
+            $("#viewVisitors").html(data);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
+</script>

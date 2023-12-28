@@ -1,0 +1,397 @@
+﻿
+@{
+    ViewBag.Title = "Add Employee";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<MVC.Domain.Model.EmployeeModel>
+
+<div class="section-header">
+    <h1>Employees</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Employee", "Admin")>Employees</a></li>
+
+
+        <li class="breadcrumb-item active">Add</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body" id="addemployee">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <a href="" class="btn btn-icon icon-left btn-primary" id="HideBtn" onclick="myFunction();"><i class="fas fa-plus"></i>Add Employee</a>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="_token" value="1qOx23Bh4cVEYWJZQOW0Bra6p7mq34lZuJE2ecu2">
+                    <div class="card-body">
+                        <div class="row">
+                            ID
+                            <div class="group col">
+                                <label for="first_name"></label> <span class="text-danger">*</span>
+                                <input id="employeeID" type="text" name="ID" class="form-control" placeholder="NEW" readonly>
+                            </div>
+                            <div class="group col">
+                                <label for="first_name">First Name</label> <span class="text-danger">*</span>
+                                <input id="fname" type="text" name="first_name" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label for="last_name">Last Name</label> <span class="text-danger">*</span>
+                                <input id="lname" type="text" name="last_name" class="form-control " value="">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>E-Mail Address</label> <span class="text-danger">*</span>
+                                <input type="email" name="email" id="email" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Phone</label> <span class="text-danger">*</span>
+                                <input type="tel" id="phone" name="phone" class="form-control " value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Joining Date</label> <span class="text-danger">*</span>
+                                <input type="date" autocomplete="off" id="joiningdate" class="form-control">
+                            </div>
+                            <div class="form-group col">
+                                <label for="gender">Gender</label> <span class="text-danger">*</span>
+                                <select id="gender" name="gender" class="form-control ">
+                                    <option value="male">
+                                        Male
+                                    </option>
+                                    <option value="female">
+                                        Female
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="department_id">Department</label> <span class="text-danger">*</span>
+                                @Html.DropDownList("department", (IEnumerable<SelectListItem>)ViewBag.Department, null, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col">
+                                <label for="designation_id">Designation</label> <span class="text-danger">*</span>
+                                @Html.DropDownList("designation", (IEnumerable<SelectListItem>)ViewBag.Designation, null, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Password</label> <span class="text-danger">*</span>
+                                <input type="password" id="password" name="password" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Confirm Password</label> <span class="text-danger">*</span>
+                                <input type="password" name="password_confirmation" class="form-control " value="">
+                            </div>
+                            <div class="form-group col">
+                                <label>Status</label> <span class="text-danger">*</span>
+                                <select name="status" id="isActive" class="form-control ">
+                                    <option value="1">
+                                        Active
+                                    </option>
+                                    <option value="0">
+                                        Inactive
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="about">About</label>
+                                <textarea name="about" class="summernote-simple form-control height-textarea " id="about" style="display: none;">                                    
+                                    </textarea><div class="note-editor note-frame card">
+                                    <div class="note-dropzone">  <div class="note-dropzone-message"></div></div><div class="note-toolbar-wrapper"><div class="note-toolbar card-header"><div class="note-btn-group btn-group note-style"><button type="button" class="note-btn btn btn-light btn-sm note-btn-bold" tabindex="-1"><i class="note-icon-bold"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-italic" tabindex="-1"><i class="note-icon-italic"></i></button><button type="button" class="note-btn btn btn-light btn-sm note-btn-underline" tabindex="-1"><i class="note-icon-underline"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-eraser"></i></button></div><div class="note-btn-group btn-group note-font"><button type="button" class="note-btn btn btn-light btn-sm note-btn-strikethrough" tabindex="-1"><i class="note-icon-strikethrough"></i></button></div><div class="note-btn-group btn-group note-para"><div class="note-btn-group btn-group"><button type="button" class="note-btn btn btn-light btn-sm dropdown-toggle" tabindex="-1" data-toggle="dropdown"><i class="note-icon-align-left"></i></button><div class="dropdown-menu"><div class="note-btn-group btn-group note-align"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-left"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-center"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-right"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-justify"></i></button></div><div class="note-btn-group btn-group note-list"><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-outdent"></i></button><button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1"><i class="note-icon-align-indent"></i></button></div></div></div></div></div></div><div class="note-editing-area">
+                                        <div class="note-handle"><div class="note-control-selection"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><textarea class="note-codable"></textarea><div class="note-editable card-block" contenteditable="true" style="min-height: 150px;">
+                                        </div>
+                                    </div><div class="note-statusbar">  <div class="note-resizebar">    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>    <div class="note-icon-bar"></div>  </div></div>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <label for="customFile">Image</label>
+                                <div class="custom-file">
+                                    <input name="image" type="file" class="custom-file-input " id="image" onchange="readURL(this);">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                                <img class="img-thumbnail image-width mt-4 mb-3" id="previewImage" src="https://demo.quickpass.xyz/assets/img/default/user.png" alt="your image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer ">
+                        <button class="btn btn-primary mr-1" type="submit" id="SaveBtn" onclick="SaveEmployee();">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="section-body" id="employeelists" style="display:none">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <a href="" class="btn btn-icon icon-left btn-primary" onclick="ShowNewEntry();"><i class="fas fa-plus"></i>Add Employee</a>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="maintable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="maintable_length"><label>Show <select name="maintable_length" aria-controls="maintable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="maintable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="maintable"></label></div></div></div><div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped dataTable no-footer" id="maintable" data-url="https://demo.quickpass.xyz/admin/get-Officers" data-status="5" data-hidecolumn="1" role="grid" aria-describedby="maintable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 15px;">ID</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 55px;">Image</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 91px;">Name</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;">Email</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 148px;">Phone</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 77px;">Joining Date</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 41px;">Status</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 67px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                           foreach (var item in Model)
+                                                {
+                                                    <tr>
+
+                                                        <td>@item.ID</td>
+                                                        <td>@item.FirstName</td>
+                                                        <td>@item.LastName</td>
+                                                        <td>@item.Email</td>
+                                                        <td>@item.Phone</td>
+                                                        <td>@item.JoiningDate</td>
+                                                        <td>@item.Gender</td>
+                                                        <td>@item.Department</td>
+                                                        <td>@item.Designation</td>
+                                                        <td>@item.IsActive</td>
+                                                        <td>
+                                                            @*<button type="button" class="btn btn-success"><i class="fa-solid fa-print"></i></button>*@
+                                                            <button type="button" class="btn  btn-icon float-left btn-primary" data-original-title="Edit" onclick="FetchUserDetails('@item.ID', '@item.Department','@item.IsActive')"><i class="far fa-edit"></i></button>
+
+                                                            <button type="button" class="btn  btn-icon float-left btn-danger delete" data-original-title="Delete" onclick="DeleteEnquiry('@item.ID','@item.Department','@item.IsActive')"><i class="fa fa-trash"></i></button>
+
+
+                                                            @*<td>
+                                                                    <a href="#"  onclick="FetchUserDetails('@item.ID', '@item.Department','@item.IsActive')" class="btn btn-sm btn-icon float-left btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="far fa-edit"></i></a><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="a8toFu5qSbuJIXiwfcQFRRk9JKlWka5SgvcwV0UH"><button class="btn btn-sm btn-icon btn-danger delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+
+                                                                </td>*@
+
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table><div id="maintable_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                                </div>
+                            </div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="maintable_info" role="status" aria-live="polite">Showing 1 to 5 of 5 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="maintable_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="maintable_previous"><a href="#" aria-controls="maintable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="maintable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="maintable_next"><a href="#" aria-controls="maintable" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    function myFunction() {
+        $('#employeelists').show();
+        $('#addemployee').hide();
+    }
+
+    function ShowNewEntry() {
+        $('#employeelists').hide();
+        $('#addemployee').show();
+    }
+</script>
+<script>
+    function SaveEmployee() {
+        debugger
+        if (IsValid() == true) {
+            debugger;
+            var employeeID = document.getElementById('employeeID').value;
+
+            var EmployeeModel = new Object();
+
+            EmployeeModel.ID = employeeID;
+            EmployeeModel.FirstName = $("#fname").val();
+            EmployeeModel.LastName = $("#lname").val();
+            EmployeeModel.Email = $("#email").val();
+            EmployeeModel.Phone = $("#phone").val();
+            EmployeeModel.JoiningDate = $("#joiningdate").val();
+            EmployeeModel.Gender = $("#gender").val();
+            EmployeeModel.Department = $("#department").val();
+            EmployeeModel.Designation = $("#designation").val();
+            EmployeeModel.Password = $("#password").val();
+            EmployeeModel.Image = $("#image").val();
+            EmployeeModel.IsActive = $("#IsActive").val();
+
+
+
+
+            var data = JSON.stringify({
+                EmployeeModel: EmployeeModel
+            });
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Employee/AddEmployee",
+                data: data,
+                success: function (result) {
+
+                    if (result == 'SUCCESS') {
+
+
+                     alert("Save Success!");
+
+                        //GetAllProduct();
+                        //Reset();
+
+                        //location.reload();
+                        //swal({
+                        //    title: "Good job!",
+                        //    text: "Click!",
+                        //    icon: "success",
+                        //    button: "Okay!",
+                        //});
+                        location.reload();
+                        Swal.fire({
+                            title: 'Sweet!',
+                            text: 'Modal with a custom image.',
+                            imageUrl: 'https://unsplash.it/400/200',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                        });
+
+                        NavigateURL('/Admin/Employee/');
+
+                    }
+                    else {
+                        alert("Save failed!");
+                    }
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+    }
+
+
+    function IsValid() {
+
+        var Id = $("#employeeID").val();
+        var FirstName = $("#fname").val();
+        var LastName = $("#lname").val();
+        var Email = $("#email").val();
+        var Phone = $("#phone").val();
+        var JoiningDate = $("#joiningdate").val();
+        var Gender = $("#gender").val();
+        var Department = $("#department").val();
+        var Designation = $("#designation").val();
+        var Password =$("#password").val();
+        var IsActive = $("isActive").val();
+        var Image = $("image").val();
+
+
+        var blResult = Boolean;
+        blResult = true;
+
+    
+        if (FirstName == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (LastName == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Email == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (Phone == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+        if (JoiningDate == "") {
+            document.getElementById('department').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Gender == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (IsActive == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Department == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Designation == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Password == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (IsActive == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+        if (Image == "") {
+            document.getElementById('IsActive').style.borderColor = "red"
+            blResult = blResult && false;
+        }
+
+
+        if (blResult == false) { alert('Please fill the required fields!'); }
+        return blResult;
+    }
+
+
+
+</script>
+
+
+
+
+
+

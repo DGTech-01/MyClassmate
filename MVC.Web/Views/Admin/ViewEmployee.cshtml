@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "View Employee";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section-header">
+    <h1>Employees</h1>
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Dashboard", "Admin")>Dashboard</a></li>
+
+
+        <li class="breadcrumb-item"><a href=@Url.Action("Employee", "Admin")>Employees</a></li>
+
+
+        <li class="breadcrumb-item active">View</li>
+
+    </ol>
+
+
+</div>
+
+<div class="section-body">
+    <div class="row mt-sm-4">
+        <div class="col-12 col-md-12 col-lg-4">
+            <div class="card">
+                <div class="profile-dashboard bg-maroon-light">
+                    <img src="https://demo.quickpass.xyz//storage/5/28-(sdasd.jpg" alt="">
+                    <h1>Gracelyn Baker</h1>
+                    <p>
+                        Employee
+                    </p>
+                </div>
+                <div class="profile-widget-description profile-widget-employee">
+                    <dl class="row">
+                        <dt class="col-sm-4">Name</dt>
+                        <dd class="col-sm-8">Gracelyn Baker</dd>
+                        <dt class="col-sm-4">Phone</dt>
+                        <dd class="col-sm-8">929-537-6564 x32732</dd>
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8">employee4@example.com</dd>
+                        <dt class="col-sm-4">Joining Date</dt>
+                        <dd class="col-sm-8">2022-09-18</dd>
+                        <dt class="col-sm-4">Gender</dt>
+                        <dd class="col-sm-8">Female</dd>
+                        <dt class="col-sm-4">Department</dt>
+                        <dd class="col-sm-8">IT</dd>
+                        <dt class="col-sm-4">Designation</dt>
+                        <dd class="col-sm-8">Chief Human Resource Officer</dd>
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">Active</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-8">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-visitor-tab" data-toggle="tab" href="#nav-visitor" role="tab" aria-controls="nav-visitor" aria-selected="true">Visitors</a>
+                    <a class="nav-item nav-link" id="nav-register-tab" data-toggle="tab" href="#nav-register" role="tab" aria-controls="nav-register" aria-selected="false">Pre-registers</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-visitor" role="tabpanel" aria-labelledby="nav-visitor-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div id="visitortable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length" id="visitortable_length">
+                                                <label>
+                                                    Show
+                                                    <select name="visitortable_length" aria-controls="visitortable" class="custom-select custom-select-sm form-control form-control-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    entries
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="visitortable_filter" class="dataTables_filter">
+                                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="visitortable" /></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-striped dataTable no-footer"
+                                                   id="visitortable"
+                                                   data-url="#"
+                                                   data-status="5"
+                                                   data-hidecolumn="1"
+                                                   role="grid"
+                                                   aria-describedby="visitortable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">ID</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Image</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Name</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Email</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Checkin</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr role="row" class="odd">
+                                                        <td>1</td>
+                                                        <td>
+                                                            <figure class="avatar mr-2"><img src="https://demo.quickpass.xyz//storage/26/24-(1).jpg" alt="" /></figure>
+                                                        </td>
+                                                        <td>Lucy Stewart</td>
+                                                        <td>Pre-registers21@example.net</td>
+                                                        <td>18-09-2022 11:48 AM</td>
+                                                        <td>
+                                                            <a href=@Url.Action("ViewVisitor", "Admin") class="btn btn-sm btn-icon mr-2 float-left btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                                                <i class="far fa-eye"></i>
+                                                            </a>
+                                                            <a href=@Url.Action("AddVisitor", "Admin") class="btn btn-sm btn-icon float-left btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <form class="float-left pl-2" action="#" method="POST">
+                                                                <input type="hidden" name="_method" value="DELETE" /><input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P" />
+                                                                <button class="btn btn-sm btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="even">
+                                                        <td>2</td>
+                                                        <td>
+                                                            <figure class="avatar mr-2"><img src="https://demo.quickpass.xyz//storage/17/17.jpg" alt="" /></figure>
+                                                        </td>
+                                                        <td>María Isabel Herrera</td>
+                                                        <td>visitors7@examplel.com</td>
+                                                        <td>18-09-2022 11:08 AM</td>
+                                                        <td>
+                                                            <a href=@Url.Action("ViewVisitor", "Admin") class="btn btn-sm btn-icon mr-2 float-left btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                                                <i class="far fa-eye"></i>
+                                                            </a>
+                                                            <a href=@Url.Action("AddVisitor", "Admin") class="btn btn-sm btn-icon float-left btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <form class="float-left pl-2" action="#" method="POST">
+                                                                <input type="hidden" name="_method" value="DELETE" /><input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P" />
+                                                                <button class="btn btn-sm btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="odd">
+                                                        <td>3</td>
+                                                        <td>
+                                                            <figure class="avatar mr-2"><img src="https://demo.quickpass.xyz//storage/18/17.jpg" alt="" /></figure>
+                                                        </td>
+                                                        <td>Ana Isabel Calvo</td>
+                                                        <td>visitors6@examplel.com</td>
+                                                        <td>18-09-2022 11:08 AM</td>
+                                                        <td>
+                                                            <a href=@Url.Action("ViewVisitor", "Admin") class="btn btn-sm btn-icon mr-2 float-left btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                                                <i class="far fa-eye"></i>
+                                                            </a>
+                                                            <a href=@Url.Action("AddVisitor", "Admin") class="btn btn-sm btn-icon float-left btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <form class="float-left pl-2" action="#" method="POST">
+                                                                <input type="hidden" name="_method" value="DELETE" /><input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P" />
+                                                                <button class="btn btn-sm btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div id="visitortable_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-5"><div class="dataTables_info" id="visitortable_info" role="status" aria-live="polite">Showing 1 to 3 of 3 entries</div></div>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="dataTables_paginate paging_simple_numbers" id="visitortable_paginate">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous disabled" id="visitortable_previous"><a href="#" aria-controls="visitortable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                                    <li class="paginate_button page-item active"><a href="#" aria-controls="visitortable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                                    <li class="paginate_button page-item next disabled" id="visitortable_next"><a href="#" aria-controls="visitortable" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div id="preregistertable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length" id="preregistertable_length">
+                                                <label>
+                                                    Show
+                                                    <select name="preregistertable_length" aria-controls="preregistertable" class="custom-select custom-select-sm form-control form-control-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    entries
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="preregistertable_filter" class="dataTables_filter">
+                                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="preregistertable" /></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-striped dataTable no-footer"
+                                                   id="preregistertable"
+                                                   data-url="#"
+                                                   data-status="5"
+                                                   data-hidecolumn="1"
+                                                   role="grid"
+                                                   aria-describedby="preregistertable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">ID</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Name</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Email</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Phone</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Expected Date</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Expected Time</th>
+                                                        <th scope="col" class="sorting_disabled" rowspan="1" colspan="1">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr role="row" class="odd">
+                                                        <td>1</td>
+                                                        <td>Lucy Stewart</td>
+                                                        <td>Pre-registers21@example.net</td>
+                                                        <td>6546550007</td>
+                                                        <td><p>2022-09-18</p></td>
+                                                        <td><p>06:45 PM</p></td>
+                                                        <td>
+                                                            <a href=@Url.Action("ViewPreRegistor", "Admin") class="btn btn-sm btn-icon mr-2 float-left btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                                                <i class="far fa-eye"></i>
+                                                            </a>
+                                                            <a href=@Url.Action("AddPreRegistor", "Admin")
+                                                               class="btn btn-sm btn-icon float-left btn-primary"
+                                                               data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title=""
+                                                               data-original-title="Edit">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <form class="float-left pl-2" action="#" method="POST">
+                                                                <input type="hidden" name="_method" value="DELETE" /><input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P" />
+                                                                <button class="btn btn-sm btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="even">
+                                                        <td>2</td>
+                                                        <td>Thea Stroman</td>
+                                                        <td>Pre-registers212@example.net</td>
+                                                        <td>964654155</td>
+                                                        <td><p class="text-danger">2022-11-08</p></td>
+                                                        <td><p class="text-danger">03:45 PM</p></td>
+                                                        <td>
+                                                            <a href=@Url.Action("ViewPreRegistor", "Admin") class="btn btn-sm btn-icon mr-2 float-left btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                                                <i class="far fa-eye"></i>
+                                                            </a>
+                                                            <a href=@Url.Action("AddPreRegistor", "Admin")
+                                                               class="btn btn-sm btn-icon float-left btn-primary"
+                                                               data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title=""
+                                                               data-original-title="Edit">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <form class="float-left pl-2" action="#" method="POST">
+                                                                <input type="hidden" name="_method" value="DELETE" /><input type="hidden" name="_token" value="zqHFaOzgpwZQldiJZePT2wudDxeGvii0FyUUoi4P" />
+                                                                <button class="btn btn-sm btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div id="preregistertable_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-5"><div class="dataTables_info" id="preregistertable_info" role="status" aria-live="polite">Showing 1 to 2 of 2 entries</div></div>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="dataTables_paginate paging_simple_numbers" id="preregistertable_paginate">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous disabled" id="preregistertable_previous"><a href="#" aria-controls="preregistertable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                                    <li class="paginate_button page-item active"><a href="#" aria-controls="preregistertable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                                    <li class="paginate_button page-item next disabled" id="preregistertable_next"><a href="#" aria-controls="preregistertable" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

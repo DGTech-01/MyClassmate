@@ -1,0 +1,389 @@
+﻿
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
+
+<!-- Main Wrapper -->
+<div @*class="main-wrapper"*@>
+
+
+    <!--content-->
+    <div class="main-wrapper" id="Entry">
+
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-5 col-5">
+                    <h4 class="page-title">Product Master</h4>
+                </div>
+                @*<div class="col-sm-7 col-7 text-right m-b-30">
+                    <a class="btn btn btn-primary btn-rounded float-right" title="Summary" onclick="Summary()">Summary </a>
+                </div>*@
+            </div>
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" @*style="visibility:hidden"*@>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Entry-ID </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtentryid" type="text" placeholder="New" readonly="readonly" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Product Name </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtPName" type="text" placeholder="Enter Name" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Product Category </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtPCategory" type="text" placeholder="Enter Category" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Product Code </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtPCode" type="text" placeholder="Enter Code" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">SKU </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtSKU" type="text" placeholder="Enter SKU " class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Product Prize </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtPrize" type="text" placeholder="Enter Prize" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label mandatory">Product Description </label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <input ID="txtDesc" type="text" placeholder="Enter Description" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <label class="custom-switch">
+                                        <input type="checkbox" name="custom-switch-checkbox" id="chkIsActive" value="true" checked class="custom-switch-input">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">Is Active?</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label"></label>
+                                        <div class="row gutters-xs">
+                                            <div class="col">
+                                                <button class="btn btn-primary submit-btn" id="btnSave" title="Save" data-toggle="tooltip" data-placement="bottom" onclick="Save()">Save </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--/content-->
+
+</div>
+<div class="Main-wrapper" id="Summary" style="display:none">
+
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-5 col-5">
+                <h4 class="page-title">Product Master Summary</h4>
+            </div>
+            <div class="col-sm-7 col-7 text-right m-b-30">
+                <button class="btn btn btn-primary btn-rounded float-right" title="Back" data-toggle="tooltip" data-placement="bottom" onclick="Back()"><i class="fa fa-arrow-left"></i></button>
+
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <button class="btn btn-danger" title="Export To Excel" data-toggle="tooltip" data-placement="bottom" onclick="GetExcelFile()"><i class="fa fa-file-excel-o"></i></button>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover tbl-cart text-nowrap" id="tblWorkOrderOpenList" style="width:100%;"></table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12" style="visibility:hidden">
+                    <div class="form-group">
+                        <label class="form-label mandatory">Search</label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                @Html.TextBox("txtsearch", null, new { @class = "form-control ", @id = "txtsearch", name = "txtsearch", autocomplete = "on" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //$(function () {
+    //    $('[data-toggle="tooltip"]').tooltip()
+    //})
+    function Summary() {
+        debugger
+        $("#Entry").hide();
+        $("#Summary").show();
+
+      //  ShowSummary();
+    }
+
+    function Back() {
+        $("#Summary").hide();
+        $("#Entry").show();
+    }
+
+    function ShowSummary() {
+        debugger;
+        //var search = document.getElementById('txtsearch').value;
+
+        //var data = { 'search': search };
+        //data = JSON.stringify(data);
+
+        //$.ajax({
+        //    url: "/Master/PackingTypeSummary",
+        //    data: data,
+        //    type: "POST",
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (data) {
+        //        if (data == "0" || data == "[]") {
+        //            alert('No data found.');
+        //            $("#tblWorkOrderOpenList").empty();
+        //            return;
+        //        }
+        //        $("#tblWorkOrderOpenList").empty();
+        //        //alert(data);
+
+        //        var data1 = JSON.stringify(data);
+
+        //        //  alert(data1);
+        //        debugger;
+        //        RepTableDataJson($("#tblWorkOrderOpenList"), data1, "ExpensesTypeMaster", "ExpensesTypeMaster")
+        //    },
+        //    error: function (errormessage) {
+        //        alert("error");
+        //        alert(errormessage.responseText);
+        //    }
+        //});
+    }
+    function RepTableDataJson(tableName, data, title, fileName) {
+        try {
+            if (tableName == null) {
+                alert("table not exist.");
+            }
+            if ($.fn.DataTable.isDataTable(tableName)) {
+                tableName.DataTable().destroy();
+                tableName.empty();
+            }
+            var parseJSONResult = jQuery.parseJSON(data);
+            if (parseJSONResult != null && parseJSONResult.length > 0) {
+                var dynamicColumns = [];
+                var i = 0;
+                $.each(parseJSONResult[0], function (key, value) {
+                    var obj = { sTitle: key };
+                    dynamicColumns[i] = obj;
+                    i++;
+                });
+                var rowDataSet = [];
+                var i = 0;
+                $.each(parseJSONResult, function (key, value) {
+                    var rowData = [];
+                    var j = 0;
+                    $.each(parseJSONResult[i], function (key, value) {
+                        rowData[j] = value;
+                        j++;
+                    });
+                    rowDataSet[i] = rowData;
+
+                    i++;
+                });
+                tableName.dataTable({
+                    "destroy": true,
+                    "bLengthChange": false,
+                    "pageLength": 25,
+                    "aaData": rowDataSet,
+                    "bInfo": true,
+                    "bPaginate": true,
+                    "bFilter": true,
+                    "paging": true,
+                    "order": [],
+                    "columns": dynamicColumns,
+                    "deferRender": true,
+                    "bSort": true,
+                    "dom": 'Bfrtip',
+                    "searching": true,
+                    "buttons": [
+                    ]
+                });
+            }
+        }
+        catch (ex) {
+            alert(ex.message);
+        }
+    }
+
+    function Save() {
+        var isvalid = true;
+        var element = {};
+        // element.EntryID = $("#txtentryid").val();
+        var ProductName = $("#txtPName").val();
+        var Category = $("#txtPCategory").val();
+        var Code = $("#txtPCode").val();
+        var SKU = $("#txtSKU").val();
+        var Prize = $("#txtPrize").val();
+        var Desc = $("#txtDesc").val();
+        var IsActive = $('#chkIsActive').is(':checked');
+
+
+        if (ProductName == "") {
+            $("#txtPName").removeClass("is-valid state-valid");
+            $("#txtPName").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtPName").removeClass("is-invalid state-invalid");
+            $("#txtPName").addClass("is-valid state-valid");
+        }
+        if (Category == "") {
+            $("#txtPCategory").removeClass("is-valid state-valid");
+            $("#txtPCategory").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtPCategory").removeClass("is-invalid state-invalid");
+            $("#txtPCategory").addClass("is-valid state-valid");
+        }
+        if (Code == "") {
+            $("#txtPCode").removeClass("is-valid state-valid");
+            $("#txtPCode").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtPCode").removeClass("is-invalid state-invalid");
+            $("#txtPCode").addClass("is-valid state-valid");
+        }
+        if (SKU == "") {
+            $("#txtSKU").removeClass("is-valid state-valid");
+            $("#txtSKU").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtSKU").removeClass("is-invalid state-invalid");
+            $("#txtSKU").addClass("is-valid state-valid");
+        }
+        if (Prize == "") {
+            $("#txtPrize").removeClass("is-valid state-valid");
+            $("#txtPrize").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtPrize").removeClass("is-invalid state-invalid");
+            $("#txtPrize").addClass("is-valid state-valid");
+        }
+        if (Desc == "") {
+            $("#txtDesc").removeClass("is-valid state-valid");
+            $("#txtDesc").addClass("is-invalid state-invalid");
+            isvalid = isvalid && false;
+        } else {
+            $("#txtDesc").removeClass("is-invalid state-invalid");
+            $("#txtDesc").addClass("is-valid state-valid");
+        }
+      
+
+        if (isvalid == false) {
+            alert("Error! Please fill required fields!");
+            return false;
+        }
+        debugger;
+
+        var data = {
+            "ProductName": ProductName, "Category": Category, "Code": Code,
+            "SKU": SKU, "Prize": Prize, "Desc": Desc, "IsActive": IsActive
+        };
+        data = JSON.stringify(data);
+
+        $.ajax({
+            url: "/Master/SaveProduct",
+            data: data,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.Status != 0) {
+                    alert("Record saved successfully.");
+                    window.location.reload();
+                } else {
+                    alert("Record not saved.");
+                    window.location.reload();
+                }
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+</script>
+
